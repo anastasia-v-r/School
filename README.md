@@ -1,6 +1,6 @@
 # Projects for C++ Class 1 at GTC
 ## Please note: Each program must be seperated from the others  
-## opened as its own solution in order to function.
+## and opened as its own solution in order to function.
 
 - **Program 3 - 1**  
 A very simple MPG Calculator with basic prompts.
