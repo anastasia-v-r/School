@@ -10,7 +10,7 @@ A ticket profit calculator with basic io manipulation.
 A bookstore rewards calculator employing basic usage of switch and case over if statements.
 
 - **Program 4 - 2**  
-A more advanced program than before employing menus, input validation, and recursion
+A more advanced program than before employing menus, input validation, and recursion  
 for the usage in calculating the area of shapes.
 
 - **Program 5 - 1**   
