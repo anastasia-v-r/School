@@ -1,5 +1,5 @@
 # Projects for C++ Class 1 at GTC
-## Please note: None each program must be seperated from the others  
+## Please note: Each program must be seperated from the others  
 ## opened as its own solution in order to function.
 
 - **Program 3 - 1**  
