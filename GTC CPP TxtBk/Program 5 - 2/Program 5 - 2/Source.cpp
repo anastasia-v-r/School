@@ -12,7 +12,7 @@ int main()
 		int mod = count % 16;
 
 		std::cout << ascii;
-		//std::cout << "(" << mod << ")";
+		std::cout << "(" << mod << ")";
 			if ((count % 16) == 0)
 			{
 				std::cout << "\n";

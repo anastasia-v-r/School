@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <iomanip>
 #include <string>
 #include <Windows.h>
@@ -16,7 +16,7 @@ int main()
 	do
 	{
 		std::cout << "[Geometry Calculator]\n1. Calculate the Area of a Circle\n2. Calculate the Area of a Rectangle\n3. Calculate the Area of a Triangle\n4. Quit\n\nEnter your choice(1 - 4)\n";
-		
+
 		do
 		{
 			std::cin >> userInput;
@@ -25,7 +25,7 @@ int main()
 				std::cout << "\nThat number was invalid, please try again.\n\n";
 			}
 		} while (userInput > 4 || userInput < 0);
-		
+
 		switch (userInput)
 		{
 		case (1):

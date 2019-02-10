@@ -5,7 +5,7 @@ int main()
 {
 	int books = 0, points = 0, totalPoints = 0, count = 0;
 	std::cout << "To exit this menu, please input a negative whole number.\n\nOtherwise, please input the amount of books you purchased this month.\n";
-	
+
 	do
 	{
 		std::cin >> books;
