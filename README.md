@@ -25,9 +25,18 @@ for the usage in calculating the area of shapes.
 - **Program 4 - 1**
 Hotel occupancy calculator
 
-- **Program 4 -2**
+- **Program 4 - 2**
 Sales chart program that taked in a simple [sales.txt] and outputs data to a [results.txt].  
 As long as same number of lines is used as in sales.txt, everything should work.
+
+- **Program 5 - 1**
+A program which stores accident data in a parrell array with an array of districts. 
+It then uses a custom function to run through the arrays together and determine the lowest 
+accident rate district. That district is then displayed along with its data.
+
+- **Program 5 - 2**
+A program that takes in a time value and displays the progression of the distance 
+gained by a falling object.
 
 
 ## CPP Textbook Programs (GTC CPP TxtBk)
