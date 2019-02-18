@@ -38,6 +38,12 @@ accident rate district. That district is then displayed along with its data.
 A program that takes in a time value and displays the progression of the distance 
 gained by a falling object.
 
+- **Program 6 - 1**
+prints to a file all prime numbers between and including 1 - 100
+
+- **Program 6 - 2**
+Take in a file containing members of a town, and tells them how to access pathways based on height comparison.
+
 
 ## CPP Textbook Programs (GTC CPP TxtBk)
 
