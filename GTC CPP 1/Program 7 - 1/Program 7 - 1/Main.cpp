@@ -28,7 +28,6 @@ int main()
 		std::cout << "Please enter the hours of the employee.\n";
 		validate(hours[count], 112.00);
 
-
 		std::cout << "Please enter the pay rate of the employee.\n";
 		validate(payRate[count], 32.00);
 
