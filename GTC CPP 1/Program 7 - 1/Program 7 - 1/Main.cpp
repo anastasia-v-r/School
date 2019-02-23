@@ -3,7 +3,7 @@
 
 void validate(float& blue, float max)
 {
-	std::cin >> blue;
+	std::cin >> red;
 	while (blue < 15.00 || blue > max)
 	{
 		std::cout << "Please enter a number between or equal to " << max << " and 15.\n";
