@@ -4,24 +4,33 @@
 int main()
 {
 	bool found = false;
+	const int arrSize = 18;
 	int input,position;
-	int list[18] = {  5658845, 4520125, 7895122, 8777541, 8451277, 1302850,
-					8080152, 4562555, 5552012, 5050552, 7825877, 1250255,
-					1005231, 6545231, 3852085, 7576651, 7881200, 4581002 };
+	int list[arrSize] = {1005231,  1250255, 1302850, 3852085, 4520125, 4562555, 
+						4581002, 5050552, 5552012, 5658845, 6545231, 7576651,
+						7825877, 7881200, 7895122, 8080152, 8451277, 8777541 };
 	
 	std::cout << "Which charge account number are you verifying?\n";
 	std::cin >> input;
 
-	found = BinarySearch(list, input, 18);
+	found = BinarySearch(list, input, arrSize, position);
 	
 	if (found == true)
 	{
-		cout << "Your number " << input << " is valid an exists at "
+		std::cout << "Your number " << input << " is valid and exists at List[" << position << "]\n";
+		system("Pause");
+	}
+	else if (found == false)
+	{
+		std::cout << "Your number " << input << " is not valid and exists at no location in 'List'\n";
+		system("Pause");
 	}
 	else
 	{
-
+		std::cout << "The program has encountered a fatal error, shutting down now.\n";
+		system("Pause");
 	}
+
 }
 
 /*Program 1:
