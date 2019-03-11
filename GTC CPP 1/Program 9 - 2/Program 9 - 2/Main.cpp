@@ -15,20 +15,14 @@ int main()
 	if (inputFile)
 	{
 		cout << "File opened succesfully\n";
-
-		while (!inputFile.eof())
+		while (inputFile >> row >> colom && (row && colom) != 0)
 		{
-			
-			inputFile >> posString;
-			row = std::stoi(posString);
 			cout << "Rows : [" << row << "]\n";
-			inputFile >> posString;
-			colom = std::stoi(posString);
-			cout << "Rows : [" << row << "]\n";
-		
+			cout << "Rows : [" << colom << "]\n";
+
 			if (row > 0 && colom < 101)
 			{
-				std::vector<std::vector<char>> inputField(row, 
+				std::vector<std::vector<char>> inputField(row,
 					std::vector<char>(colom));
 				for (int countOut = 0; countOut < row; countOut++)
 				{
