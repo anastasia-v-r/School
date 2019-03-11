@@ -1,10 +1,57 @@
 ﻿#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
 int main()
 {
+	std::string posString;
+	std::fstream inputFile("inputdata.dat", std::ios::in);
+	std::fstream outputFile("outputdata.dat", std::ios::out | std::ios::app);
+	unsigned int posX, posY;
+		
+	if (inputFile)
+	{
+		std::cout << "File opened succesfully\n";
+		inputFile >> posString;
+		posX = std::stoi(posString);
+		std::cout << "Rows : [" << posX << "]\n";
+		inputFile >> posString;
+		posY = std::stoi(posString);
+		std::cout << "Rows : [" << posX << "]\n";
+		
+		if (posX > 0 && posY < 101)
+		{
+			std::vector<std::vector<char>> mineField;
+		}
+		else
+		{
+			if (posX < 0)
+			{
+				std::cout << "PosX is too small. Must be more than 1.\n";
+			}
+			else
+			{
+				std::cout << "PosY is too big. Must be less than 101.\n";
+			}
+		}
+	}
+	else
+	{
+		std::cout << "Error opening file!\n";
+	}
+
+	std::cin.ignore();
 	
 }
 
+//STEPS!!!!!!!!
+
+
+//Pull in data
+//SEARCH : use N poisiton such as n[n][n] and check [n-1][n-1] (↑←), [n-1][n] (↑) so on and so forth.
+//Generate output
+//Output
 /*Program 2:
 
 Have you ever played Minesweeper ? This cute little game comes with a certain operating 
@@ -46,6 +93,7 @@ representing the field.
 	....
 	.*..
 	....
+
 	3 5 
 	**...
 	.....
