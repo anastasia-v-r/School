@@ -1,50 +1,37 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include "Funcs.h"
+using std::cout;
+using std::fstream;
+using Vec2dChar = std::vector<std::vector<char>>;
 
 int main()
 {
-	using std::cout;
 	std::string posString;
-	std::fstream inputFile("inputdata.dat", std::ios::in);
-	std::fstream outputFile("outputdata.dat", std::ios::out | std::ios::app);
-	unsigned int row, colom;
-	char holder;
+	bool success, end = false;
+	int count = 0;
+	fstream inputFile("inputdata.dat", std::ios::in);
+	fstream outputFile("outputdata.dat", std::ios::out | std::ios::app);
+	
+	Vec2dChar inputField, outputField;
 
 	if (inputFile)
 	{
-		cout << "File opened succesfully\n";
-		while (inputFile >> row >> colom && (row && colom) != 0)
+		cout << "File opened succesfully\n\n\n";
+		while (end == false)
 		{
-			cout << "Rows : [" << row << "]\n";
-			cout << "Rows : [" << colom << "]\n";
+			cout << "Field #" << ++count << ":\n";
 
-			if (row > 0 && colom < 101)
+			end = processInput(inputFile, inputField, success);
+
+			if (success == true && end == false)
 			{
-				std::vector<std::vector<char>> inputField(row,
-					std::vector<char>(colom));
-				for (int countOut = 0; countOut < row; countOut++)
-				{
-					for (int countIn = 0; countIn < colom; countIn++)
-					{
-						inputFile >> holder;
-						inputField[countOut][countIn] = holder;
-						cout << inputField[countOut][countIn];
-					}
-					cout << std::endl;
-				}
+				processOutput(outputFile, inputField, outputField);
 			}
 			else
 			{
-				if (row < 0)
-				{
-					cout << "Too few rows. Must be more than 1.\n";
-				}
-				else
-				{
-					cout << "Too many columns. Must be less than 101.\n";
-				}
+				cout << "File unable to process\n";
 			}
 		}
 	}
@@ -52,6 +39,7 @@ int main()
 	{
 		cout << "Error opening file!\n";
 	}
+
 
 	std::cin.ignore();
 	
