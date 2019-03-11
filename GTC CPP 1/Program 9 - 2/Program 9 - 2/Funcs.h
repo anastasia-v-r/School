@@ -16,13 +16,10 @@ bool processInput(fstream& inputFile, Vec2dChar& inputField, bool& success)
 		if (row == 0 && colom == 0)
 		{
 			success = true;
-			cout << "End of Processing";
+			cout << "\nEnd of Processing";
 			return true;
 			break;
 		}
-
-		cout << "Rows : [" << row << "]\n";
-		cout << "Rows : [" << colom << "]\n";
 
 		if (row > 0 && colom < 101)
 		{
@@ -35,11 +32,11 @@ bool processInput(fstream& inputFile, Vec2dChar& inputField, bool& success)
 				{
 					inputFile >> holder;
 					inputField[countOut][countIn] = holder;
-					cout << inputField[countOut][countIn];
+					//cout << inputField[countOut][countIn];
 				}
-				cout << std::endl;
+				//cout << std::endl;
 			}
-			cout << "\n";
+			//cout << "\n";
 			return false;
 			break;
 		}

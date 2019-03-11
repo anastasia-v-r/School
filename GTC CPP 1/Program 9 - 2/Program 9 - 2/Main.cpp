@@ -21,15 +21,17 @@ int main()
 		cout << "File opened succesfully\n\n\n";
 		while (end == false)
 		{
-			cout << "Field #" << ++count << ":\n";
 
 			end = processInput(inputFile, inputField, success);
 
 			if (success == true && end == false)
 			{
+				cout << "Field #" << ++count << ":\n";
+				cout << "Size[" << inputField.size() << "]";
+				cout << "[" << inputField[0].size() << "]\n";
 				processOutput(outputFile, inputField, outputField);
 			}
-			else
+			else if (end == false)
 			{
 				cout << "File unable to process\n";
 			}
