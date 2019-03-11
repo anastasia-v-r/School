@@ -5,40 +5,58 @@
 
 int main()
 {
+	using std::cout;
 	std::string posString;
 	std::fstream inputFile("inputdata.dat", std::ios::in);
 	std::fstream outputFile("outputdata.dat", std::ios::out | std::ios::app);
-	unsigned int posX, posY;
-		
+	unsigned int row, colom;
+	char holder;
+
 	if (inputFile)
 	{
-		std::cout << "File opened succesfully\n";
-		inputFile >> posString;
-		posX = std::stoi(posString);
-		std::cout << "Rows : [" << posX << "]\n";
-		inputFile >> posString;
-		posY = std::stoi(posString);
-		std::cout << "Rows : [" << posX << "]\n";
+		cout << "File opened succesfully\n";
+
+		while (!inputFile.eof())
+		{
+			
+			inputFile >> posString;
+			row = std::stoi(posString);
+			cout << "Rows : [" << row << "]\n";
+			inputFile >> posString;
+			colom = std::stoi(posString);
+			cout << "Rows : [" << row << "]\n";
 		
-		if (posX > 0 && posY < 101)
-		{
-			std::vector<std::vector<char>> mineField;
-		}
-		else
-		{
-			if (posX < 0)
+			if (row > 0 && colom < 101)
 			{
-				std::cout << "PosX is too small. Must be more than 1.\n";
+				std::vector<std::vector<char>> inputField(row, 
+					std::vector<char>(colom));
+				for (int countOut = 0; countOut < row; countOut++)
+				{
+					for (int countIn = 0; countIn < colom; countIn++)
+					{
+						inputFile >> holder;
+						inputField[countOut][countIn] = holder;
+						cout << inputField[countOut][countIn];
+					}
+					cout << std::endl;
+				}
 			}
 			else
 			{
-				std::cout << "PosY is too big. Must be less than 101.\n";
+				if (row < 0)
+				{
+					cout << "Too few rows. Must be more than 1.\n";
+				}
+				else
+				{
+					cout << "Too many columns. Must be less than 101.\n";
+				}
 			}
 		}
 	}
 	else
 	{
-		std::cout << "Error opening file!\n";
+		cout << "Error opening file!\n";
 	}
 
 	std::cin.ignore();
