@@ -56,20 +56,6 @@ int main()
 //Output
 /*Program 2:
 
-Have you ever played Minesweeper ? This cute little game comes with a certain operating 
-system whose name we can’t remember.The goal of the game is to find where all the mines 
-are located within a M × N field.
-
-The game shows a number in a square which tells you how many mines there are adjacent to
-that square.Each square has at most eight adjacent squares.The 4 × 4 field on the left
-contains two mines, each represented by a “*” character.If we represent the same field 
-by the hint numbers described above, we end up with the field on the right :
-
-*...	*100
-....	2210
-.*..  	1*10
-.... 	1110
-
 
 Input(inputdata.dat file)
 
