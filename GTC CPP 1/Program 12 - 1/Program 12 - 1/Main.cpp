@@ -21,7 +21,7 @@ int main() {
 				  << "|(C) Exit the program.|\n"
 				  << "+---------------------+\n\n";
 		
-		std::cin >> choice;
+		std::cin.get(choice);
 		choice = toupper(choice);
 		if (choice == 'A') {
 			progIn = encrypt();
@@ -33,9 +33,9 @@ int main() {
 			break;
 		}
 		if (progIn) {
-			std::cout << "+----------------------------------------------------+\n"
+			std::cout << "+--------------------------------------+\n"
 					  << "|" << std::setw(10) << option << " was completed successfully.|\n"
-					  << "+----------------------------------------------------+\n\n";
+					  << "+--------------------------------------+\n\n";
 		}
 		std::cout << "+-------------------------------------------+\n"
 				  << "|Would you like to do something else? (y/n)?|\n"
