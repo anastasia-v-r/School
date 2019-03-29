@@ -16,7 +16,7 @@ int main() {
 		 << "+---------------------------------------------+\n";
 	cin >> base;
 	// Validate input
-	while (!(base > -10 && base < 10)) {
+	while (!(base > -10 && base < 10) && !(base == 0)) {
 		cin >> base;
 		cout << "+----------------------------------------+\n"
 			<< "| Invalid input, please enter an integer |\n"
@@ -37,24 +37,24 @@ int main() {
 	// Generate cube
 	grid3d.resize(length, vector<vector<int>>(length, vector<int>(length)));
 	// Fill cube
-	for (int i = 0; i < length; ++i) {
-		for (int j = 0; j < length; ++j) {
-			for (int k = 0; k < length; ++k) {
-				grid3d[i][j][k] = ((i * j * k) * base);
+	for (int i = 1; i < length; ++i) {
+		for (int j = 1; j < length; ++j) {
+			for (int k = 1; k < length; ++k) {
+				grid3d[i][j][k] = ((i * base)*(j * base)*(k * base));
 			}
 		}
 	}
 	// Print cube
-	for (int i = 0; i < length; ++i) {
-		for (int j = 0; j < length; ++j) {
-			for (int k = 0; k < length; ++k) {
+	for (int i = 1; i < length; ++i) {
+		for (int j = 1; j < length; ++j) {
+			for (int k = 1; k < length; ++k) {
 				if (grid3d[i][j][k] == 0) {
 					// Skip this print
 				} else {
-					cout << "[" << i << "]"
-						<< "[" << j << "]"
-						<< "[" << k << "] ="
-						<< grid3d[i][j][k] << "\n";
+					cout << "[" << i * base << "] * "
+						 << "[" << j * base << "] * "
+						 << "[" << k * base << "] = "
+						 << grid3d[i][j][k] << "\n";
 				}
 				std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			}
