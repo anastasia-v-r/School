@@ -17,10 +17,10 @@ int main() {
 	cin >> base;
 	// Validate input
 	while (!(base > -10 && base < 10) && !(base == 0)) {
-		cin >> base;
 		cout << "+----------------------------------------+\n"
-			<< "| Invalid input, please enter an integer |\n"
-			<< "+----------------------------------------+\n";
+			 << "| Invalid input, please enter an integer |\n"
+			 << "+----------------------------------------+\n";
+		cin >> base;
 	}
 	// Get length from user
 	cout << "+----------------------------------------+\n"
@@ -28,11 +28,11 @@ int main() {
 		 << "+----------------------------------------+\n";
 	cin >> length;
 	// Validate input
-	while (!(length > 0 && length < INT_MAX)) {
-		cin >> length;
+	while (!(length > 0 && length < INT_MAX)) {	
 		cout << "+-----------------------------------------------+\n"
 			<< "| Invalid input, please enter a positive integer |\n"
 			<< "+------------------------------------------------+\n";
+		cin >> length;
 	}
 	// Generate cube
 	grid3d.resize(length, vector<vector<int>>(length, vector<int>(length)));
