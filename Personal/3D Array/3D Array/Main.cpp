@@ -1,21 +1,65 @@
+// Includes n Usings
 #include <iostream>
-#include <iomanip>
-
-int main()
-{
-	const int arrSize = 10;
-	int posY = 0, posZ = 0, posX = 0;
-	int arrY[arrSize], arrZ[arrSize], arrX[arrSize];
-
-	for (posY = 0; posY <= arrSize; ++posY)
-	arrY[posY] = 
-	{
-		for (posZ = 0; posZ < arrSize; ++posZ)
-		{
-			for (posX = 0; posX <= arrSize; ++posX)
-			{
-
+using std::cout; using std::cin;
+#include <vector>
+using std::vector;
+#include <chrono>
+#include <thread>
+// Variables
+vector<vector<vector<int>>> grid3d;
+int base, length;
+// Entry Point
+int main() {
+	// Get base from user
+	cout << "+---------------------------------------------+\n"
+		 << "| What number would you like your base to be? |\n"
+		 << "+---------------------------------------------+\n";
+	cin >> base;
+	// Validate input
+	while (!(base > -10 && base < 10)) {
+		cin >> base;
+		cout << "+----------------------------------------+\n"
+			<< "| Invalid input, please enter an integer |\n"
+			<< "+----------------------------------------+\n";
+	}
+	// Get length from user
+	cout << "+----------------------------------------+\n"
+		 << "| How long do you want each array to be? |\n"
+		 << "+----------------------------------------+\n";
+	cin >> length;
+	// Validate input
+	while (!(length > 0 && length < INT_MAX)) {
+		cin >> length;
+		cout << "+-----------------------------------------------+\n"
+			<< "| Invalid input, please enter a positive integer |\n"
+			<< "+------------------------------------------------+\n";
+	}
+	// Generate cube
+	grid3d.resize(length, vector<vector<int>>(length, vector<int>(length)));
+	// Fill cube
+	for (int i = 0; i < length; ++i) {
+		for (int j = 0; j < length; ++j) {
+			for (int k = 0; k < length; ++k) {
+				grid3d[i][j][k] = ((i * j * k) * base);
 			}
 		}
 	}
+	// Print cube
+	for (int i = 0; i < length; ++i) {
+		for (int j = 0; j < length; ++j) {
+			for (int k = 0; k < length; ++k) {
+				if (grid3d[i][j][k] == 0) {
+					// Skip this print
+				} else {
+					cout << "[" << i << "]"
+						<< "[" << j << "]"
+						<< "[" << k << "] ="
+						<< grid3d[i][j][k] << "\n";
+				}
+				std::this_thread::sleep_for(std::chrono::milliseconds(1));
+			}
+		}
+	}
+	// Hold System
+	system("pause");
 }
