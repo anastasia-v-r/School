@@ -60,8 +60,8 @@ int main() {
 		}
 		// Ask user if they would like to try again
 		cout << "+---------------------------------------+\n"
-			<< "| Would you like to go again? ( y / n ) |\n"
-			<< "+---------------------------------------+\n";
+			 << "| Would you like to go again? ( y / n ) |\n"
+			 << "+---------------------------------------+\n";
 		cin >> goOn;
 		goOn = tolower(goOn);
 		// Validate input
