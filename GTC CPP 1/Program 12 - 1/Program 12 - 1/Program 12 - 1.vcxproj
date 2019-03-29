@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="funcs.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="newMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="funcs.h" />

@@ -4,8 +4,6 @@
 #include <string>
 #include "funcs.h"
 
-
-std::vector<char>;
 bool progIn, progOut;
 char choice;
 std::string option;
@@ -18,7 +16,7 @@ int main() {
 				  << "+---------------------+\n"
 				  << "|(A) Encrypt a file.  |\n"
 				  << "|(B) Cypher a file.   |\n"
-				  << "|(C) Exit the program.|\n"
+				  << "|(D) Exit the program.|\n"
 				  << "+---------------------+\n\n";
 		
 		std::cin.get(choice);
@@ -26,9 +24,11 @@ int main() {
 		if (choice == 'A') {
 			progIn = encrypt();
 			option = "Encryption";
-		} else if ('B') {
+		} else if (choice == 'B') {
 			progIn = decrypt();
 			option = "Cypher";
+		} else if (choice == 'C') {
+
 		} else { 
 			break;
 		}

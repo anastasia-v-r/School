@@ -48,7 +48,7 @@ bool encrypt() {
 					int a = file[i];
 					sTemp = a;
 					int size = (sizeof(sTemp) / sizeof(sTemp[0]));
-					for (int j = 0; j < (size - 1); j++) {
+					for (int j = 0; j < (sTemp.size() - 1); j++) {
 						if (size > 1) {
 							if (j == 1 && j == 2) {
 								std::cout << "/";
