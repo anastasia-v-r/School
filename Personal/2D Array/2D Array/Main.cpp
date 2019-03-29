@@ -8,7 +8,7 @@ using std::vector;
 // Variables
 vector<vector<int>> grid2d;
 int base, length;
-bool goOn;
+char goOn;
 // Entry Point
 int main() {
 	do {
@@ -19,10 +19,10 @@ int main() {
 		cin >> base;
 		// Validate input
 		while (!(base > -10 && base < 10) && !(base == 0)) {
-			cin >> base;
 			cout << "+----------------------------------------+\n"
 				<< "| Invalid input, please enter an integer |\n"
 				<< "+----------------------------------------+\n";
+			cin >> base;
 		}
 		// Get length from user
 		cout << "+----------------------------------------+\n"
@@ -31,10 +31,10 @@ int main() {
 		cin >> length;
 		// Validate input
 		while (!(length > 0 && length < INT_MAX)) {
-			cin >> length;
 			cout << "+-----------------------------------------------+\n"
 				<< "| Invalid input, please enter a positive integer |\n"
 				<< "+------------------------------------------------+\n";
+			cin >> length;
 		}
 		// Generate cube
 		grid2d.resize(length, vector<int>(length));
@@ -58,6 +58,21 @@ int main() {
 				std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			}
 		}
-	} while (goOn == true);
-	
+		// Ask user if they would like to try again
+		cout << "+---------------------------------------+\n"
+			<< "| Would you like to go again? ( y / n ) |\n"
+			<< "+---------------------------------------+\n";
+		cin >> goOn;
+		goOn = tolower(goOn);
+		// Validate input
+		while (goOn != 'y' && goOn != 'n') {
+			cout << "+----------------------------------------------+\n"
+				<< "| Invalid input, please enter a valid character |\n"
+				<< "+-----------------------------------------------+\n";
+			cin >> goOn;
+			goOn = tolower(goOn);
+		}
+		// Hold System
+		system("pause");
+	} while (goOn == 'y');
 }
