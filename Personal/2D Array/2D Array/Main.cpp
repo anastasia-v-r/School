@@ -37,20 +37,20 @@ int main() {
 	// Generate cube
 	grid2d.resize(length, vector<int>(length));
 	// Fill cube
-	for (int i = 1; i < length; ++i) {
-		for (int j = 1; j < length; ++j) {
-			grid2d[i][j] = ((i * base)*(j * base));
+	for (int i = 0; i < length; ++i) {
+		for (int j = 0; j < length; ++j) {
+			grid2d[i][j] = (((i + 1) * base)*((j + 1) * base));
 		}
 	}
 	// Print cube
-	for (int i = 1; i < length; ++i) {
-		for (int j = 1; j < length; ++j) {
+	for (int i = 0; i < length; ++i) {
+		for (int j = 0; j < length; ++j) {
 			if (grid2d[i][j] == 0) {
 				// Skip this print
 			}
 			else {
-				cout << "[" << i * base << "] * "
-					<< "[" << j * base << "] = "
+				cout << "[" << (1 + i) * base << "] * "
+					<< "[" << (1 + j) * base << "] = "
 					<< grid2d[i][j] << "\n";
 			}
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
