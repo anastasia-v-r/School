@@ -3,4 +3,4 @@
 
 bool pullData(std::vector<char>&);
 bool encrypt();
-bool decrypt();
+bool cypher();
