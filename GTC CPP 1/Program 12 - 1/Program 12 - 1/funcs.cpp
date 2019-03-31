@@ -1,76 +1,122 @@
 #pragma once
+// Includes 
 #include "funcs.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
-
+// Read File
 bool pullData(std::vector<char>& file) {
-	std::string filePath;
-	std::fstream input;
-	char prog, i;
+	// Variables
+	std::string filePath; // Store file path of input file
+	std::fstream input; // Fstream for using that file path
+	char progress, getChar; 
 	do {
-		std::cout << "Please input your file path.\n";
+		std::cout << "+----------------------------+\n"
+				  << "|Please input your file path.|\n"
+				  << "+----------------------------+\n\n";
 		std::cin.ignore();
-		std::getline(std::cin, filePath);
+		std::getline(std::cin, filePath); // Get file path from user
 		input.open(filePath, std::ios::in);
-		if (input) {
-			while (input.get(i)) {
-				file.push_back(i);
+		if (input) { // Pull file into into 
+			while (input.get(getChar)) {
+				file.push_back(getChar);
 			}
 			return true;
 		}
 		else {
-			std::cout << "Error opening file!\n"
-				   	  << "Would you like to try again? (y/n)\n";
-			std::cin.get(prog);
-			prog  = tolower(prog);
-			if (prog == 'n') {
+			std::cout << "+----------------------------------+\n"
+					  << "|       Error opening file!        |\n"
+					  << "+----------------------------------+\n"
+				   	  << "|Would you like to try again? (y/n)|\n"
+					  << "+----------------------------------+\n\n";
+			std::cin.get(progress);
+			progress  = tolower(progress);
+			if (progress == 'n') {
 				return false;
 			}
 		}
-	} while (prog == 'y');
+	} while (progress == 'y');
 }
-
+// Encrypt
 bool encrypt() {
 	std::vector<char> file;
 	std::string sTemp;
 	std::fstream output;
+	char key;
 	bool done = false;
 	bool prog = pullData(file);
 	if (prog) {
 		do {
-			std::cout << "Please enter the path for your output file.\n";
+			std::cout << "+-------------------------------------------+\n"
+					  << "|Please enter the path for your output file.|\n"
+					  << "+-------------------------------------------+\n\n";
 			std::getline(std::cin, sTemp);
 			output.open(sTemp, std::ios::out);
+			std::cout << "+----------------------+\n"
+					  << "|Please enter your key.|\n"
+					  << "+----------------------+\n\n";
+			std::cin.get(key);
 			if (output) {
 				for (int i = 0; i < file.size(); ++i) {
-					int a = file[i];
-					sTemp = a;
-					int size = (sizeof(sTemp) / sizeof(sTemp[0]));
-					for (int j = 0; j < (sTemp.size() - 1); j++) {
-						if (size > 1) {
-							if (j == 1 && j == 2) {
-								std::cout << "/";
-							}
-						}
-						int b = (int)sTemp[j];
-						std::cout << b;
-					}
+					file[i] ^= key;
+					output << file[i];
 				}
 				std::cout << "\n";
 				return true;
 			} else {
-				std::cout << "Error creating file!\n";
+				std::cout << "+--------------------+\n"
+						  << "|Error creating file!|\n"
+						  << "+--------------------+\n\n";
 			}
 		} while (!done);
 	}
 	else {
-		std::cout << "Encryption unsuccessful, returning to main menu...\n";
+		std::cout << "+--------------------------------------------------+\n"
+				  << "|Encryption unsuccessful, returning to main menu...|\n"
+				  << "+--------------------------------------------------+\n\n";
 		return false;
 	}
 }
 
-bool decrypt() {
-	return true;
+// Encrypt
+bool cypher() {
+	std::vector<char> file;
+	std::string sTemp;
+	std::fstream output;
+	char key;
+	bool done = false;
+	bool prog = pullData(file);
+	if (prog) {
+		do {
+			std::cout << "+-------------------------------------------+\n"
+					  << "|Please enter the path for your output file.|\n"
+					  << "+-------------------------------------------+\n\n";
+			std::getline(std::cin, sTemp);
+			output.open(sTemp, std::ios::out);
+			std::cout << "+----------------------+\n"
+					  << "|Please enter your key.|\n"
+					  << "+----------------------+\n\n";
+			std::cin.get(key);
+			if (output) {
+				for (int i = 0; i < file.size(); ++i) {
+					file[i] ^= key;
+					output << file[i];
+				}
+				std::cout << "\n";
+				return true;
+			}
+			else {
+				std::cout << "+--------------------+\n"
+						  << "|Error creating file!|\n"
+						  << "+--------------------+\n\n";
+			}
+		} while (!done);
+	}
+	else {
+		std::cout << "+----------------------------------------------+\n"
+				  << "|Cypher unsuccessful, returning to main menu...|\n"
+		 		  << "+----------------------------------------------+\n\n";
+		return false;
+	}
 }
