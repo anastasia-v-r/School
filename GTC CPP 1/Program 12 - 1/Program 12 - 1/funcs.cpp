@@ -48,16 +48,16 @@ bool encrypt() {
 	bool prog = pullData(file);
 	if (prog) {
 		do {
-			std::cout << "+-------------------------------------------+\n"
+			std::cout << "+-------------------------------------------+\n" // Get Path
 					  << "|Please enter the path for your output file.|\n"
 					  << "+-------------------------------------------+\n\n";
 			std::getline(std::cin, sTemp);
 			output.open(sTemp, std::ios::out);
-			std::cout << "+----------------------+\n"
+			std::cout << "+----------------------+\n" // Get Key
 					  << "|Please enter your key.|\n"
 					  << "+----------------------+\n\n";
 			std::cin.get(key);
-			if (output) {
+			if (output) { // Encrypt to file
 				for (int i = 0; i < file.size(); ++i) {
 					file[i] ^= key;
 					output << file[i];
@@ -79,7 +79,7 @@ bool encrypt() {
 	}
 }
 
-// Encrypt
+// Cypher
 bool cypher() {
 	std::vector<char> file;
 	std::string sTemp;
@@ -89,16 +89,16 @@ bool cypher() {
 	bool prog = pullData(file);
 	if (prog) {
 		do {
-			std::cout << "+-------------------------------------------+\n"
+			std::cout << "+-------------------------------------------+\n" // Get Path
 					  << "|Please enter the path for your output file.|\n"
 					  << "+-------------------------------------------+\n\n";
 			std::getline(std::cin, sTemp);
 			output.open(sTemp, std::ios::out);
-			std::cout << "+----------------------+\n"
+			std::cout << "+----------------------+\n" // Get Key
 					  << "|Please enter your key.|\n"
 					  << "+----------------------+\n\n";
 			std::cin.get(key);
-			if (output) {
+			if (output) { // Cypher to file
 				for (int i = 0; i < file.size(); ++i) {
 					file[i] ^= key;
 					output << file[i];
