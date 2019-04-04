@@ -42,9 +42,11 @@ int main()
 	tempData.open("temperatures.txt");
 
 	// Fill in the code that calls the getList function.
-	void getList(ifstream& stream);
+	list.getList(tempData);
 	// Fill in the code that calls the printList function.
-	void printList();
+	list.printList();
+	cout << "avg\n";
+	list.printAvg();
 	system("pause");
 	return 0;
 }
