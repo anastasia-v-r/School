@@ -58,10 +58,3 @@ A simple program with basic input validation designed to perform arithmetic prog
 
 - **Program 5 - 2**  
 A program designed to display every ASCII character in order while only putting 16 outputs per line.
-
-
-# Personal 
-
-- **3D Array**
-A small program I'm writing in preparation for my voxel game project I have planned. Check Project-BBB,  
-another one of my repo's for a working 3D array generator in lua called, generator.lua or something close.
