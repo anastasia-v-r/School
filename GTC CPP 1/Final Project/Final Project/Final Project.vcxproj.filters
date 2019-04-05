@@ -29,6 +29,9 @@
     <ClInclude Include="Dealer.h">
       <Filter>Class Headers</Filter>
     </ClInclude>
+    <ClInclude Include="customIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
@@ -44,6 +47,9 @@
       <Filter>Class Source</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="customIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
