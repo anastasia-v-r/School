@@ -29,7 +29,7 @@
     <ClInclude Include="Dealer.h">
       <Filter>Class Headers</Filter>
     </ClInclude>
-    <ClInclude Include="smallPrint.h">
+    <ClInclude Include="customIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -49,7 +49,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="smallPrint.cpp">
+    <ClCompile Include="customIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
