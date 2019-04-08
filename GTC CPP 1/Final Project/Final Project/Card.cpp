@@ -1,12 +1,22 @@
 #include "Card.h"
 
-
-
-Card::Card()
-{
+int Card::getValue() const {
+	return value;
 }
 
+char Card::getSuit() const {
+	return suit;
+}
 
-Card::~Card()
-{
+bool Card::isFace() const {
+	return faceUp;
+}
+
+Card::Card(int val, char su) {
+	suit = su;
+	value = val;
+}
+
+Card::~Card() {
+
 }
