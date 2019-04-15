@@ -2,4 +2,4 @@
 #include <vector>
 #include "Player.h"
 
-void draw(Player, Player);
+void draw(std::vector<Player>, Player, int);
