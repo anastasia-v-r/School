@@ -37,6 +37,14 @@ void Player::makeDeal(bool is) {
 	dealer = is;
 }
 
+void Player::setInsur(int val) {
+	insurance = val;
+}
+
+int Player::getInsur() const {
+	return insurance;
+}
+
 Player::Player(std::string namE, int banK, int winS, int losS){
 	name = namE;
 	bank = banK;
