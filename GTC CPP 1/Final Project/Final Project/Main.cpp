@@ -49,11 +49,11 @@ int main() {
 		smallBox("How many players?");
 		cin >> iInput;
 		// Input Validation
-		while (iInput < 2 || iInput > 6) {
+		while (iInput < 2 || iInput > 4) {
 			if (iInput < 2) {
 				smallBox("Too few players. Please try again");
 			}
-			else if (iInput > 6) {
+			else if (iInput > 4) {
 				smallBox("Too many players. Please try again");
 			}
 			cin.ignore(1);
@@ -106,29 +106,31 @@ int main() {
 	// Deck Setup
 	int seed = std::chrono::system_clock::now().time_since_epoch().count(); // Shuffle Seed
 	std::vector<Card> deck; // Make deck
-	for (int i = 0; i < 4; ++i) { // Outer loop sets suit
-		char currSuit;
-		switch (i)
-		{
-		case(0):
-			currSuit = '♣';
-			break;
-		case(1):
-			currSuit = '♦';
-			break;
-		case(2):
-			currSuit = '♥';
-			break;
-		case(3):
-			currSuit = '♠';
-			break;
-		default:
-			smallBox("A critical error has been encountered, exiting");
-			exiting();
-			return 0;
-		}
-		for (int j = 1; j < 14; ++j) { // Inner loop sets value
-			deck.push_back(Card(j, currSuit));
+	for (int k = 0; k < 2; ++k) {
+		for (int i = 0; i < 4; ++i) { // Outer loop sets suit
+			char currSuit;
+			switch (i)
+			{
+			case(0):
+				currSuit = '♣';
+				break;
+			case(1):
+				currSuit = '♦';
+				break;
+			case(2):
+				currSuit = '♥';
+				break;
+			case(3):
+				currSuit = '♠';
+				break;
+			default:
+				smallBox("A critical error has been encountered, exiting");
+				exiting();
+				return 0;
+			}
+			for (int j = 1; j < 14; ++j) { // Inner loop sets value
+				deck.push_back(Card(j, currSuit));
+			}
 		}
 	}
 	shuffle(deck.begin(), deck.end(), std::default_random_engine(seed));
@@ -149,17 +151,96 @@ int main() {
 		wait(1);
 		// Place betts
 		for (int i = 0; i < players.size(); ++i) {
-			Player currPlr = players[i];
-			draw(currPlr, dealer);
-
+			int tempBet;
+			clearScreen();
+			draw(players, dealer, i);
+			smallBox("Place your bet (0 - 100)");
+			cin.ignore(1);
+			cin >> tempBet;
+			while (tempBet < 0 || tempBet > 100) {
+				if (tempBet < 0) {
+					smallBox("No negative bets, please reenter");
+					cin >> tempBet;
+				} else if (tempBet > 100) {
+					smallBox("Bet too large, please reenter");
+					cin >> tempBet;
+				}
+			}
+			players[i].setBet(tempBet);
+			clearScreen();
+			draw(players, dealer, i);
 		}
-		// Dealer turn
+		// Deal Cards
+		for (int i = 0; i < 2; ++i) {
+			// Player Draw
+			for (int j = 0; j < players.size(); ++j) {
+				if (players[j].getBet() == 0) {
+					continue;
+				}
+				players[j].hand[i] = deck.back();
+				deck.pop_back();
+			}
+			// Dealer Draw
+			dealer.hand[i] = deck.back();
+			if (i == 0) {
+				dealer.hand[0].hideCard(false);
+			}
+			deck.pop_back();
+		}
+		// Player Action
+		for (int i = 0; i < players.size(); ++i) {
+			string sChoice;
+			char cChoice;
+			int iChoice;
+			if (players[i].getBet() == 0) { // Skip no bet players
+				continue;
+			} else {
+				clearScreen();
+				draw(players, dealer, i);
+				if (dealer.hand[1].getValue() == 1) { // Insurance
+					smallBox("Would you like to take insurace? (y/n)");
+					cin.ignore(1);
+					cin.get(cChoice);
+					cChoice = toupper(cChoice); // Input Validation
+					while (cChoice != 'Y' && cChoice != 'N') {
+						smallBox("Invalid input, try again");
+						cin.ignore(1);
+						cin.get(cChoice);
+						cChoice = toupper(cChoice);
+					}
+					if (cChoice = 'Y') { // Get insurance amount
+						smallBox("How much insuracne would you like to place?");
+						cin >> iChoice;
+						while (iChoice < 0 || iChoice >(players[i].getBet() / 2)) {
+							if (iChoice < 0) {
+								smallBox("Too small, place again");
+								cin >> iChoice;
+							} else if (iChoice > (players[i].getBet() / 2)) {
+								smallBox("Too large, place again");
+								cin >> iChoice;
+							}
+						}
+						players[i].setInsur(iChoice);
+					}
+				}
+				smallBox("What would you like to do? (Hit/Stand/Double/Split/Surrender)");
+				cin.ignore(1);
+				getline(cin, sChoice);
+				upString(sChoice);
+				while (sChoice != "HIT" && sChoice != "STAND" && sChoice != "DOUBLE" && sChoice != "SPLIT" && sChoice != "SURRENDER") {
+					smallBox("Invalid input, try again");
+					cin.ignore(1);
+					getline(cin, sChoice);
+					upString(sChoice);
+				}
+			}
+		}
 	}
 	system("pause");
 }
 
 /* TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-1. Betting
+1. Betting [DONE]
 2. Hit
 3. Stand
 4. Double Down
