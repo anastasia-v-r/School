@@ -12,7 +12,7 @@ using namespace std;
 void draw(std::vector<Player> plrs, Player dlr, int curr) {
 	       "+--------------------------------------------------------------------------------------------+";
 	cout << "\n";																							 
-	cout << "Name:" << setw(10) << plrs[curr].getName() << " Bal:" << setw(8) << plrs[curr].getBal() << "\n";									 
+	cout << "Name:" << setw(10) << left << plrs[curr].getName() << " Bal:" << setw(8) << plrs[curr].getBal() << "\n";									 
 	cout << "Bets:";
 	for (int i = 0; i < plrs.size(); ++i) {
 		cout << "[P" << i + 1 << "]" << plrs[i].getBet();
@@ -23,15 +23,16 @@ void draw(std::vector<Player> plrs, Player dlr, int curr) {
 	cout << "\n";
 	cout << "Cards:";
 	for (int i = 0; i < plrs.size(); ++i) {
-		for (int j = 0; j < 2; ++j) {
-			cout << "P" << i << "[" << plrs[i].hand[j].getSuit() << plrs[i].hand[j].getValue() << "]";
+		cout << "P" << i << ":";
+		for (int j = 0; j < plrs[i].hand.size(); ++j) {
+			cout << "C" << j << "[" << plrs[i].hand[j].getSuit() << plrs[i].hand[j].getValue() << "]";
 		}
 		if (i < (plrs.size() - 1)) {
 			cout << " | ";
 		}
 	}
 	if (plrs[curr].hand.size() > 2) {
-		cout << "Your Extra Cards: ";
+		cout << "\nYour Extra Cards: ";
 		for (int i = 2; i < plrs[curr].hand.size(); ++i) {
 			cout << "[" << plrs[curr].hand[i].getSuit() << plrs[curr].hand[i].getValue() << "]";
 		}
@@ -41,14 +42,14 @@ void draw(std::vector<Player> plrs, Player dlr, int curr) {
 	}
 	cout << "\n";																							 
 	cout << "                                       Dealer \n";												 
-	cout << "                              +----------+ +----------+                                       ";
-	cout << "                              |" << dlr.hand[0].getSuit() << dlr.hand[0].getValue() << "        | |" << dlr.hand[1].getSuit() << dlr.hand[1].getValue() << "        |\n";
-	cout << "							   |          | |          |                                       ";
-	cout << "							   |          | |          |                                       ";
-	cout << "							   |          | |          |                                       ";
-	cout << "							   |          | |          |                                       ";
-	cout << "							   |          | |          |                                       ";
-	cout << "							   +----------+ +----------+                                       ";
+	cout << "                              +----------+ +----------+\n";
+	cout << "                              |" << dlr.hand[0].getSuit() << setw(2) << dlr.hand[0].getValue() << "       | |" << dlr.hand[1].getSuit() << setw(2) << dlr.hand[1].getValue() << "       |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              +----------+ +----------+\n";
 	if (dlr.hand.size() > 2) {
 		cout << "The Dealers Extra Cards: ";
 		for (int i = 2; i < dlr.hand.size(); ++i) {
@@ -61,14 +62,14 @@ void draw(std::vector<Player> plrs, Player dlr, int curr) {
 	}
 	cout << "\n";																							 																							 
 	cout << "                                    Player (You) \n";											 
-	cout << "                              +----------+ +----------+";                                       
-	cout << "                              |" << plrs[curr].hand[0].getSuit() << plrs[curr].hand[0].getValue() << "        | |" << plrs[curr].hand[1].getSuit() << plrs[curr].hand[1].getValue() << "        |\n"; 																										
-	cout << "							   |          | |          |									   ";
-	cout << "							   |          | |          |									   ";
-	cout << "							   |          | |          |									   ";
-	cout << "							   |          | |          |									   ";
-	cout << "							   |          | |          |									   ";
-	cout << "							   +----------+ +----------+									   ";																							 
+	cout << "                              +----------+ +----------+\n";                                       
+	cout << "                              |" << plrs[curr].hand[0].getSuit() << setw(2) << plrs[curr].hand[0].getValue() << "       | |" << plrs[curr].hand[1].getSuit() << setw(2) << plrs[curr].hand[1].getValue() << "       |\n"; 																										
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              |          | |          |\n";
+	cout << "                              +----------+ +----------+\n";																							 
 }																											
 
 // Deck Setup
@@ -80,16 +81,16 @@ int makeDeck(std::vector<Card>& deck) {
 			switch (i)
 			{
 			case(0):
-				currSuit = '♣';
+				currSuit = '\6';
 				break;
 			case(1):
-				currSuit = '♦';
+				currSuit = '\4';
 				break;
 			case(2):
-				currSuit = '♥';
+				currSuit = '\3';
 				break;
 			case(3):
-				currSuit = '♠';
+				currSuit = '\5';
 				break;
 			default:
 				smallBox("A critical error has been encountered, exiting");

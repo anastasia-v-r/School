@@ -18,6 +18,7 @@ void makeAcc(std::string path, std::vector<Player>& plr) {
 	std::fstream outputFile;
 	smallBox("Please enter an account name");
 	std::string accName;
+	std::cin.ignore(1);
 	getline(std::cin, accName);
 	outputFile.open((path + accName + "-Acc.txt"), std::ios::out);
 	outputFile << accName;

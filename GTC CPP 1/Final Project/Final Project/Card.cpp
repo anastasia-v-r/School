@@ -29,6 +29,10 @@ void Card::hideCard(bool face) {
 	faceUp = face;
 }
 
+Card::Card() {
+
+}
+
 Card::Card(int val, char su) {
 	suit = su;
 	value = val;

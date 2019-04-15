@@ -9,6 +9,7 @@ private:
 	char suit;
 	bool faceUp = true;
 public:
+	Card();
 	Card(int, char);
 	Card(int, char, bool);
 	~Card();
