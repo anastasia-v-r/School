@@ -45,6 +45,14 @@ int Player::getInsur() const {
 	return insurance;
 }
 
+bool Player::getStand() const {
+	return stand;
+}
+
+void Player::setStand(bool isStand) {
+	stand = isStand;
+}
+
 Player::Player(std::string namE, int banK, int winS, int losS){
 	name = namE;
 	bank = banK;

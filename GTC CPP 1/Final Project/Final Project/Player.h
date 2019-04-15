@@ -10,6 +10,7 @@ private:
 	int insurance = 0;
 	int bet = 0;
 	bool dealer;
+	bool stand = false;
 // Account
 	int wins;
 	int losses;
@@ -19,6 +20,7 @@ private:
 public:
 	// Misc
 	std::vector<Card> hand;
+	std::vector<Card> hand2;
 	// Getters
 	bool isDeal() const;
 	int getBet() const;
@@ -27,7 +29,9 @@ public:
 	int getWins() const;
 	int getLoss() const;
 	int getInsur() const;
+	bool getStand() const;
 	// Setters
+	void setStand(bool);
 	void setInsur(int);
 	void makeDeal(bool);
 	void setBet(int);
