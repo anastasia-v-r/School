@@ -31,7 +31,7 @@ int main() {
 	}
 	// Welcome Screen
 	menuScreen(menuText);
-	wait(2000);
+	wait(5000);
 	// Mode Select
 	clearScreen();
 	smallBox("What mode would you like to play? (PVP/PVE)");
