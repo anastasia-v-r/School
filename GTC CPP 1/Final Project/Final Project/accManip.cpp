@@ -28,8 +28,11 @@ void makeAcc(std::string path, std::vector<Player>& plr) {
 		smallBox("Invalid amount, please try again");
 		std::cin >> balance;
 	}
+	outputFile << "\n";
 	outputFile << balance;
+	outputFile << "\n";
 	outputFile << 0;
+	outputFile << "\n";
 	outputFile << 0;
 	plr.push_back(Player{ accName, balance, 0, 0 });
 }
@@ -38,8 +41,11 @@ void updateAcc(std::string path, Player plr) {
 	std::fstream outputFile;
 	outputFile.open((path + plr.getName() + "-Acc.txt"), std::ios::out);
 	outputFile << plr.getName();
+	outputFile << "\n";
 	outputFile << plr.getBal();
+	outputFile << "\n";
 	outputFile << plr.getWins();
+	outputFile << "\n";
 	outputFile << plr.getLoss();
 }
 

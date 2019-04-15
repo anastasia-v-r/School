@@ -14,6 +14,7 @@ public:
 	~Card();
 	char getSuit() const;
 	int getValue() const;
+	void setValue(int);
 	bool isFace() const;
 	void hideCard(bool);
 };

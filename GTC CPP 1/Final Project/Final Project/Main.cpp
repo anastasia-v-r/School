@@ -3,8 +3,6 @@
 using std::cout; using std::cin;
 #include <string>
 using std::string;
-#include <algorithm>
-#include <random>
 #include <fstream>
 #include <filesystem>
 #include "customWait.h"
@@ -103,37 +101,9 @@ int main() {
 			return 0;
 		}
 	}
-	// Deck Setup
-	int seed = std::chrono::system_clock::now().time_since_epoch().count(); // Shuffle Seed
+	// Deck setup
 	std::vector<Card> deck; // Make deck
-	for (int k = 0; k < 2; ++k) {
-		for (int i = 0; i < 4; ++i) { // Outer loop sets suit
-			char currSuit;
-			switch (i)
-			{
-			case(0):
-				currSuit = '♣';
-				break;
-			case(1):
-				currSuit = '♦';
-				break;
-			case(2):
-				currSuit = '♥';
-				break;
-			case(3):
-				currSuit = '♠';
-				break;
-			default:
-				smallBox("A critical error has been encountered, exiting");
-				exiting();
-				return 0;
-			}
-			for (int j = 1; j < 14; ++j) { // Inner loop sets value
-				deck.push_back(Card(j, currSuit));
-			}
-		}
-	}
-	shuffle(deck.begin(), deck.end(), std::default_random_engine(seed));
+	makeDeck(deck);
 	// Plr's Setup
 	Player dealer("", 0, 0, 0); // Create Dealer
 	for (int i = 0; i < players.size(); ++i) { // Setup Players
@@ -167,6 +137,7 @@ int main() {
 				}
 			}
 			players[i].setBet(tempBet);
+			players[i].setBal(players[i].getBal() - tempBet);
 			clearScreen();
 			draw(players, dealer, i);
 		}
@@ -174,7 +145,7 @@ int main() {
 		for (int i = 0; i < 2; ++i) {
 			// Player Draw
 			for (int j = 0; j < players.size(); ++j) {
-				if (players[j].getBet() == 0) {
+				if (players[j].getBet() == 0) { // Dont deal to non betters
 					continue;
 				}
 				players[j].hand[i] = deck.back();
@@ -187,8 +158,13 @@ int main() {
 			}
 			deck.pop_back();
 		}
+
 		// Player Action
 		for (int i = 0; i < players.size(); ++i) {
+			if (players[i].getStand() == true) {
+				players[i].setStand(false);
+				continue;
+			}
 			string sChoice;
 			char cChoice;
 			int iChoice;
@@ -223,27 +199,192 @@ int main() {
 						players[i].setInsur(iChoice);
 					}
 				}
-				smallBox("What would you like to do? (Hit/Stand/Double/Split/Surrender)");
-				cin.ignore(1);
-				getline(cin, sChoice);
-				upString(sChoice);
-				while (sChoice != "HIT" && sChoice != "STAND" && sChoice != "DOUBLE" && sChoice != "SPLIT" && sChoice != "SURRENDER") {
-					smallBox("Invalid input, try again");
-					cin.ignore(1);
-					getline(cin, sChoice);
-					upString(sChoice);
+				bool invalid;
+				do {
+					int hands = 1;
+					if (players[i].getHands == 2) {
+						hands = 2;
+					}
+					for (int handCount = 0; handCount < hands; ++handCount) {
+						do {
+							invalid = false;
+							smallBox("What would you like to do? (Hit/Stand/Double/Split/Surrender)");
+							cin.ignore(1);
+							getline(cin, sChoice);
+							upString(sChoice);
+							while (sChoice != "HIT" && sChoice != "STAND" && sChoice != "DOUBLE" && sChoice != "SPLIT") {
+								smallBox("Invalid input, try again");
+								cin.ignore(1);
+								getline(cin, sChoice);
+								upString(sChoice);
+							}
+							if (sChoice == "HIT") {
+								if (deck.size() < 0) {
+									smallBox("No more cards left, resetting deck");
+									makeDeck(deck);
+								}
+								if (handCount == 1) {
+									players[i].hand.push_back(deck.back());
+									deck.pop_back();
+								} else if (handCount == 2) {
+									players[i].hand2.push_back(deck.back());
+									deck.pop_back();
+								}
+							}
+							else if (sChoice == "STAND") {
+								players[i].setStand(true);
+							}
+							else if (sChoice == "DOUBLE") {
+								if (players[i].getBal() < (players[i].getBet() * 2) || players[i].hand2.empty() != true) {
+									smallBox("Not enough money/2 hands");
+									invalid = true;
+								}
+								else {
+									players[i].setBal(players[i].getBal() - players[i].getBet());
+									players[i].setBet(players[i].getBal() * 2);
+								}
+							}
+							else if (sChoice == "SPLIT") {
+								if (players[i].hand[0].getValue() == players[i].hand[1].getValue() || players[i].hand2.empty() == true || players[i].hand.size() < 3) {
+									smallBox("Already have 2 hands/not first 2 cards/dont have 2 of same value");
+									invalid = true;
+								}
+								else {
+									players[i].hand2[0] = players[i].hand[1];
+									players[i].hand.pop_back();
+									players[i].setHands(2);
+									players[i].setBet(players[i].getBet());
+									players[i].setBal(players[i].getBal() - players[i].getBet2());
+								}
+							}
+							else {
+								smallBox("Critical Error, exiting");
+								exiting();
+								return 0;
+							}
+							if (invalid == true) {
+								smallBox("You performed an invalid action, take your turn again");
+							}
+						} while (invalid == true);
+					}
+				} while (players[i].getStand() != true);
+			}
+		}
+		// Dealer pull
+		int dealerHand;
+		dealer.hand[0].hideCard(true);
+		do {  // Determine value
+			if (dealer.hand[0].getValue() == 1 || dealer.hand[1].getValue() == 1) { // If ace
+				if (dealer.hand[0].getValue() == 1) { // if first ace
+					if (dealer.hand[1].getValue() == 10) { // if first ace second 10
+						dealerHand = 21;
+					} else {
+					dealerHand = 1 + dealer.hand[1].getValue();
+					}
+				} else { // if second ace
+					if (dealer.hand[0].getValue() == 10) { // if second ace first 10
+						dealerHand = 21;
+					}
+					else {
+						dealerHand = 1 + dealer.hand[0].getValue();
+					}
+				}
+			} else {
+				dealerHand = dealer.hand[0].getValue() + dealer.hand[1].getValue();
+			}
+			dealer.hand.push_back(deck.back);
+			deck.pop_back();
+		} while (dealerHand < 17);
+		// Game logic
+		for (int i = 0; i < players.size(); ++i) { // Go through all players
+			int ace;
+			int plrVal;
+			int plrVal2;
+			for (int j = 0; j < players[i].hand.size(); ++j) { // Process cards for aces
+				if (players[i].hand[j].getValue() == 1) {
+					smallBox("Would you like this ace to be an 11 or 1?");
+					cin >> ace;
+					while (ace != 1 || ace != 11) {
+						smallBox("Invalid input, please try again");
+						cin >> ace;
+					}
+					draw(players, dealer, i);
+					players[i].hand[j].setValue(ace);
+				}
+				plrVal = players[i].hand[j].getValue(); // Set player hand value
+			}
+			if (players[i].getHands() == 2) {
+				for (int j = 0; j < players[i].hand2.size(); ++j) { // Process cards for aces
+					if (players[i].hand2[j].getValue() == 1) {
+						smallBox("Would you like this ace to be an 11 or 1?");
+						cin >> ace;
+						while (ace != 1 || ace != 11) {
+							smallBox("Invalid input, please try again");
+							cin >> ace;
+						}
+						draw(players, dealer, i);
+						players[i].hand2[j].setValue(ace);
+					}
+					plrVal = players[i].hand2[j].getValue(); // Set player hand value
+				}
+			}
+			if (plrVal > 21) { // Check win loss
+				players[i].setBet(0);
+			} else if (plrVal == 21 && dealerHand == 21) {
+				players[i].setBal(players[i].getBal() + players[i].getBet());
+				players[i].setBet(0);
+			}
+			else if (plrVal == 21) {
+				players[i].setBal(players[i].getBal + (players[i].getBet() * 2.5));
+				players[i].setBet(0);
+			}
+			else if (plrVal < 21 && plrVal > dealerHand) {
+				players[i].setBal(players[i].getBal + (players[i].getBal() * 2.5));
+				players[i].setBet(0);
+			}
+			else {
+				players[i].setBet(0);
+			}
+			if (players[i].getHands() == 2) { // Check second hand win loss
+				if (plrVal2 > 21) {
+					players[i].setBet2(0);
+				} else if (plrVal2 == 21 && dealerHand == 21) {
+					players[i].setBal(players[i].getBal() + players[i].getBet2());
+					players[i].setBet2(0);
+				}
+				else if (plrVal2 == 21) {
+					players[i].setBal(players[i].getBal + (players[i].getBet2() * 2.5));
+					players[i].setBet2(0);
+				}
+				else if (plrVal2 < 21 && plrVal > dealerHand) {
+					players[i].setBal(players[i].getBal + (players[i].getBet2() * 2.5));
+					players[i].setBet2(0);
+				}
+				else {
+					players[i].setBet2(0);
 				}
 			}
 		}
+		// Reset Field
+		for (int i = 0; i < players.size(); ++i) {
+			players[i].hand.clear();
+			players[i].hand.resize(2);
+			if (players[i].getHands() == 2) {
+				players[i].setHands(1);
+				players[i].hand2.clear();
+			}
+		}
+		// End Game?
+
 	}
 	system("pause");
 }
 
 /* TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 1. Betting [DONE]
-2. Hit
-3. Stand
-4. Double Down
-5. Split a pair
-6. Insurance
+2. Hit [DONE]
+3. Stand [DONE]
+4. Double Down [DONE]
+5. Split a pair [DONE]
+6. Insurance [DONE]
 */ 

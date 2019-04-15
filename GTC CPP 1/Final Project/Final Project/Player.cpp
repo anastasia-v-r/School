@@ -29,8 +29,16 @@ int Player::getBet() const {
 	return bet;
 }
 
+int Player::getBet2() const {
+	return bet2;
+}
+
 void Player::setBet(int uBet) {
 	bet = uBet;
+}
+
+void Player::setBet2(int uBet) {
+	bet2 = uBet;
 }
 
 void Player::makeDeal(bool is) {
@@ -51,6 +59,14 @@ bool Player::getStand() const {
 
 void Player::setStand(bool isStand) {
 	stand = isStand;
+}
+
+void Player::setHands(int val) {
+	hands = 2;
+}
+
+int Player::getHands() const {
+	return hands;
 }
 
 Player::Player(std::string namE, int banK, int winS, int losS){

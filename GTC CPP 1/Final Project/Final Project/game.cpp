@@ -49,7 +49,16 @@ void draw(std::vector<Player> plrs, Player dlr, int curr) {
 	cout << "							   |          | |          |                                       ";
 	cout << "							   |          | |          |                                       ";
 	cout << "							   +----------+ +----------+                                       ";
-	cout << "\n";																							 																						 
+	if (dlr.hand.size() > 2) {
+		cout << "The Dealers Extra Cards: ";
+		for (int i = 2; i < dlr.hand.size(); ++i) {
+			cout << "[" << dlr.hand[i].getSuit() << dlr.hand[i].getValue() << "]";
+		}
+		cout << "\n";
+	}
+	else {
+		cout << "\n";
+	}
 	cout << "\n";																							 																							 
 	cout << "                                    Player (You) \n";											 
 	cout << "                              +----------+ +----------+";                                       

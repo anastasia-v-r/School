@@ -9,6 +9,10 @@ int Card::getValue() const {
 	}
 }
 
+void Card::setValue(int val) {
+	value = val;
+}
+
 char Card::getSuit() const {
 	if (faceUp) {
 		return suit;
