@@ -122,8 +122,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="classes.h" />
     <ClInclude Include="customWait.h" />
-    <ClInclude Include="Dealer.h" />
-    <ClInclude Include="Deck.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="customIO.h" />
     <ClInclude Include="accManip.h" />
@@ -132,8 +131,7 @@
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="customWait.cpp" />
-    <ClCompile Include="Dealer.cpp" />
-    <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="customIO.cpp" />

@@ -1,8 +1,10 @@
-// Includes and Usings
+﻿// Includes and Usings
 #include <iostream>
 using std::cout; using std::cin;
 #include <string>
 using std::string;
+#include <algorithm>
+#include <random>
 #include <fstream>
 #include <filesystem>
 #include "customWait.h"
@@ -10,6 +12,7 @@ using std::string;
 #include "resources.h"
 #include "classes.h"
 #include "accManip.h"
+#include "game.h"
 // Variables and Data
 string accPath = std::filesystem::current_path().string() + "\\accs\\";
 bool playing = true;
@@ -68,6 +71,7 @@ int main() {
 	for (int i = 0; i < plrAm; ++i) {
 		bool existing;
 		smallBox(" Player [" + std::to_string(i + 1) + "] : Do you already have an account? (y/n)");
+		cin.ignore(1);
 		cin.get(cInput);
 		cInput = toupper(cInput);
 		// Input Validation
@@ -80,25 +84,85 @@ int main() {
 		if (cInput == 'Y') {
 			std::ifstream plrAcc;
 			smallBox("Please enter your account name");
+			cin.ignore(1);
 			getline(cin, sInput);
 			plrAcc.open(accPath + sInput + "-Acc.txt");
 			if (plrAcc) {
-				pullAcc(plrAcc); // Not yet implemented
+				pullAcc(plrAcc, players); // Not yet implemented
 			} else {
-				smallBox("Account does not exist, creating now");
+				smallBox("Account does not exist");
+				smallBox("A critical error has been encountered, exiting");
+				exiting();
+				return 0;
 			}
 		} else if (cInput == 'N') {
-			makeAcc(accPath);
-
+			makeAcc(accPath, players);
 		} else {
 			smallBox("A critical error has been encountered, exiting");
 			exiting();
 			return 0;
 		}
 	}
+	// Deck Setup
+	int seed = std::chrono::system_clock::now().time_since_epoch().count(); // Shuffle Seed
+	std::vector<Card> deck; // Make deck
+	for (int i = 0; i < 4; ++i) { // Outer loop sets suit
+		char currSuit;
+		switch (i)
+		{
+		case(0):
+			currSuit = '♣';
+			break;
+		case(1):
+			currSuit = '♦';
+			break;
+		case(2):
+			currSuit = '♥';
+			break;
+		case(3):
+			currSuit = '♠';
+			break;
+		default:
+			smallBox("A critical error has been encountered, exiting");
+			exiting();
+			return 0;
+		}
+		for (int j = 1; j < 14; ++j) { // Inner loop sets value
+			deck.push_back(Card(j, currSuit));
+		}
+	}
+	shuffle(deck.begin(), deck.end(), std::default_random_engine(seed));
+	// Plr's Setup
+	Player dealer("", 0, 0, 0); // Create Dealer
+	for (int i = 0; i < players.size(); ++i) { // Setup Players
+		for (int j = 0; j < 2; ++j) {
+			players[i].hand.push_back(Card(0, '0'));
+			players[i].setBet(0);
+		}
+	}
+	for (int i = 0; i < 2; ++i) { // Setup Dealer
+		dealer.hand.push_back(Card(0, '0'));
+	}
+	dealer.makeDeal(true); // Dealer was normal player -> is now Dealer type of player
 	// Game Loop
 	while (playing) {
+		wait(1);
+		// Place betts
+		for (int i = 0; i < players.size(); ++i) {
+			Player currPlr = players[i];
+			draw(currPlr, dealer);
 
+		}
+		// Dealer turn
 	}
 	system("pause");
 }
+
+/* TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+1. Betting
+2. Hit
+3. Stand
+4. Double Down
+5. Split a pair
+6. Insurance
+*/ 
