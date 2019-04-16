@@ -23,12 +23,6 @@
     <ClInclude Include="Player.h">
       <Filter>Class Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Deck.h">
-      <Filter>Class Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Dealer.h">
-      <Filter>Class Headers</Filter>
-    </ClInclude>
     <ClInclude Include="customIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -44,15 +38,12 @@
     <ClInclude Include="accManip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp">
-      <Filter>Class Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Dealer.cpp">
-      <Filter>Class Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Deck.cpp">
       <Filter>Class Source</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -68,6 +59,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="accManip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
