@@ -47,7 +47,7 @@ int main()
 {
 
 	ifstream infile;	      // Input file to read values into array
-	infile.open("Inventory.dat");
+	infile.open("inventory.dat");
 
 	// Fill in the code that declares an array of objects of class Inventory
 	// called products. The array should be of size NUMOFPROD

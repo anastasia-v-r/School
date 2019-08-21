@@ -47,6 +47,7 @@ int main()
 	sphere2.printCircleStats();
 	sphere3.printCircleStats();
 
+	system("pause");
 	return 0;
 }
 
