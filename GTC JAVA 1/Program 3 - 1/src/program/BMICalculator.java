@@ -4,19 +4,21 @@ import java.util.*;
 
 public class BMICalculator {
     public static void main(String[] args) {
-        double weight, inches;
+        double weight, feet, inches;
         Scanner input = new Scanner(System.in);
 
         System.out.println("Please enter your weight : ");
         weight = input.nextDouble();
-        System.out.println("Please enter how tall you are in inches : ");
+        System.out.println("Please enter your height measurements feet amount : ");
+        feet = input.nextDouble();
+        System.out.println("Please enter your height measurement inches reamainder : ");
         inches = input.nextDouble();
 
         final	double	KILOGRAMS_PER_POUND	= 0.45359237;
         final	double	METERS_PER_INCH	= 0.0254;
 
         double	weightInKilograms =	weight * KILOGRAMS_PER_POUND;
-        double	heightInMeters = inches * METERS_PER_INCH;
+        double	heightInMeters = ((feet * 12) + inches) * METERS_PER_INCH;
         double	bmi	= weightInKilograms / (heightInMeters	* heightInMeters);
 
         System.out.println("Your BMI is " + bmi);
