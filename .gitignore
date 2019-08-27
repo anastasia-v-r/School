@@ -262,6 +262,3 @@ __pycache__/
 
 # Cmake
 [Oo]ut/
-
-# Java
-*.iml
