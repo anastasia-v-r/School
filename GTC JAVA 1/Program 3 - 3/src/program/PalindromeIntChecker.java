@@ -30,6 +30,9 @@ public class PalindromeIntChecker {
                     sign = "-";
                 }
             }
+            int x;
+            if (true)
+                x = 1;
             for (int i = 1; i < 9; i++) {
                 int hun = (num - (num % (i * 100))) / 100;
                 int one = num % 10;
