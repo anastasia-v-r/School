@@ -1,5 +1,6 @@
 #include <string>
 #include <map>
+#include <iostream>
 
 class Month
 {
@@ -11,28 +12,32 @@ public:
 	// Destructors
 	~Month();
 	// Getters
-	std::pair<std::string, int> GetMonth();
+	std::pair<int, std::string> GetMonth();
 	// Setters
-	void SetMonth(std::string);
-	void SetMonth(int);
+	bool SetMonth(std::string);
+	bool SetMonth(int);
 	// Overloads
-	friend void Month::operator++();
-	friend void Month::operator++(int);
+	Month& operator++();
+	Month& operator--();
+	Month operator++(int);
+	Month operator--(int);
+	friend std::ostream& operator<<(std::ostream&, const Month&);
+	friend std::istream& operator>>(std::istream&, Month&);
 private:
 	std::string name;
 	int monthNumber;
-	std::map<std::string, int> MonthMap{
-		{"January"	,  1},
-		{"Febuary"	,  2},
-		{"March"	,  3},
-		{"April"	,  4},
-		{"May"		,  5},
-		{"June"		,  6},
-		{"July"		,  7},
-		{"August"	,  8},
-		{"September",  9},
-		{"October"  , 10},
-		{"November" , 11},
-		{"December" , 12}
+	std::map<int, std::string> MonthMap{
+		{ 1, "january"	},
+		{ 2, "febuary"	},
+		{ 3, "march"	},
+		{ 4, "april"	},
+		{ 5, "may"		},
+		{ 6, "june"		},
+		{ 7, "july"		},
+		{ 8, "august"	},
+		{ 9, "september"},
+		{10, "october"  },
+		{11, "november" },
+		{12, "december" }
 	};
 };

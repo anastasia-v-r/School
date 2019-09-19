@@ -1,4 +1,5 @@
 ﻿#include "Month.hpp"
+#include <algorithm>
 
 Month::Month() 
 	: name{ "Januray" }
@@ -15,59 +16,111 @@ Month::Month(int num) {
 	SetMonth(num);
 }
 
+Month::~Month() {
+
+}
+
 bool Month::SetMonth(std::string str) {
-	auto name = ([str] {
-		for (const auto& letter : str) {
-			letter = std::tolower(letter);
+	std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+	std::map<int, std::string>::iterator it = MonthMap.begin();
+	for (const auto& element : MonthMap) {
+		if (element.second == str) {
+			name = element.second;
+			monthNumber = element.first;
+			return true;
 		}
-		str[0] = std::toupper(str[0]);
-		return str;
-	});
-	if (MonthMap.count(str)) {
-		name = str;
-		return true;
-	} else {
-		return false;
 	}
+	return false;
 }
 
 bool Month::SetMonth(int num) {
-	std::iterator it = MonthMap.begin();
-	for (  )
+	std::map<int, std::string>::iterator it = MonthMap.begin();
+	for (const auto& element : MonthMap) {
+		if (element.first == num) {
+			name = element.second;
+			monthNumber = element.first;
+			return true;
+		}
+	}
+	return false;
 }
 
 std::pair<int, std::string> Month::GetMonth() {
-
+	return std::make_pair( monthNumber, name );
 }
 
-Month Month::operator++()
+Month& Month::operator++()
 {
-	++;
-	simplify();
+	if (monthNumber == 12) {
+		monthNumber = 1;
+		name = MonthMap[monthNumber];
+	} else {		   
+		monthNumber++; 
+		name = MonthMap[monthNumber];
+	}
 	return *this;
 }
 
-void Month::operator++(int)
+Month& Month::operator--()
 {
-	FeetInches temp(feet, inches);
-	inches++;
-	simplify();
+	if (monthNumber == 1) {
+		monthNumber = 12;
+		name = MonthMap[monthNumber];
+	}
+	else {
+		monthNumber--;
+		name = MonthMap[monthNumber];
+	}
+	return *this;
+}
+
+Month Month::operator++(int)
+{
+	Month temp(name);
+	if (monthNumber == 12) {
+		monthNumber = 1;
+		name = MonthMap[monthNumber];
+	}
+	else {
+		monthNumber++;
+		name = MonthMap[monthNumber];
+	}
 	return temp;
 }
-/*
-A constructor that accepts the name of the month as an argument. It should set name to the value passed as the 
-argument and set monthNumber to the correct value.
 
-A constructor that accepts the number of the month as an argument. It should set monthNumber to the value passed 
-as the argument and set name to the correct month name.
+Month Month::operator--(int)
+{
+	Month temp(name);
+	if (monthNumber == 1) {
+		monthNumber = 12;
+		name = MonthMap[monthNumber];
+	}
+	else {
+		monthNumber--;
+		name = MonthMap[monthNumber];
+	}
+	return temp;
+}
 
-Appropriate set and get functions for the name and monthNumber member variables.
+std::ostream& operator<<(std::ostream& strm, const Month& obj)
+{
+	strm << "Month [" << obj.monthNumber << "] : \"" << (char)std::toupper(obj.name[0]);
+	for (int i = 1; i < obj.name.length(); i++) {
+		strm << obj.name[i];
+	}
+	strm << "\"" << std::endl;
+	return strm;
+}
 
-Prefix and postfix overloaded ++ operator functions that increment monthNumber and set name to the name of next month.
-If monthNumber is set to 12 when these functions execute, they should set monthNumber to 1 and name to “January.”
-
-Prefix and postfix overloaded −− operator functions that decrement monthNumber and set name to the name of previous month. 
-If monthNumber is set to 1 when these functions execute, they should set monthNumber to 12 and name to “December.”
-
-Also, you should overload cout’s << operator and cin’s >> operator to work with the Month class. Demonstrate the class in a program.
-*/
+std::istream& operator>>(std::istream& strm, Month& obj)
+{
+	std::cout << "Please enter the month name or number [1-12]" << std::endl;
+	std::string input;
+	strm >> input;
+	if (std::isdigit(input[0])) {
+		obj = Month(std::stoi(input));
+	} else {
+		obj = Month(input);
+	}
+	return strm;
+}
