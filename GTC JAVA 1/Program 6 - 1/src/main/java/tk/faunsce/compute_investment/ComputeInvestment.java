@@ -21,7 +21,7 @@ public class ComputeInvestment {
 }
 
 /*
-futureInvestmentValue = investmentAmount × (1 + monthlyIntrestRate)
+futureInvestmentValue = investmentAmount × (1 + monthlyInterestRate)
 numberOfYears*12
 
 Unclear mathematical function?
