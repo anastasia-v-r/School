@@ -1,7 +1,5 @@
 package tk.faunsce.polygon_calculator;
 
-import org.graalvm.compiler.phases.graph.ScheduledNodeIterator;
-
 import java.util.Scanner;
 
 public class PolygonCalculator {
