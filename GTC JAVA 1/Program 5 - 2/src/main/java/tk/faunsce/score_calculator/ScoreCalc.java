@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.score_calculator;
 
 import java.util.*;
 
