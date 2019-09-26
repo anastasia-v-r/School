@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.loan_comparator;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
