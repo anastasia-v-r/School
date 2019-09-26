@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.compute_future_tuition;
 
 import java.text.DecimalFormat;
 
