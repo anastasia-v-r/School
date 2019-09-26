@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.palindrome_int_checker;
 
 import java.util.*;
 
