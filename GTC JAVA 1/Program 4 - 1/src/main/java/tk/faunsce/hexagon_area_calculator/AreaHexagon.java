@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.hexagon_area_calculator;
 
 import java.util.*;
 
