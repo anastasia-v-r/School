@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.financial_calculator;
 
 import	java.util.Scanner;
 
