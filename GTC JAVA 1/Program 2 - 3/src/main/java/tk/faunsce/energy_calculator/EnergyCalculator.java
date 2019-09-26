@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.energy_calculator;
 
 import java.util.*;
 
