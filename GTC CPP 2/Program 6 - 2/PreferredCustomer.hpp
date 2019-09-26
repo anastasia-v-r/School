@@ -5,7 +5,6 @@ class PreferredCustomer : public CustomerData
 {
 public:
 	PreferredCustomer();
-	~PreferredCustomer();
 	// Getters
 	double getPurchasesAmount() { return mPurchasesAmount; };
 	double getDiscountLevel() { return mDiscountLevel; };
@@ -16,11 +15,3 @@ private:
 	double mPurchasesAmount;
 	double mDiscountLevel;
 };
-
-PreferredCustomer::PreferredCustomer()
-{
-}
-
-PreferredCustomer::~PreferredCustomer()
-{
-}
