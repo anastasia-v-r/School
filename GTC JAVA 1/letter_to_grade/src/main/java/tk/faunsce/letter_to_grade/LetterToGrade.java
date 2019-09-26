@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.letter_to_grade;
 
 import java.util.Scanner;
 
