@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.phone_keypad_emulator;
 
 import java.util.*;
 
