@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.acceleration_calculator;
 
 import java.util.*;
 
