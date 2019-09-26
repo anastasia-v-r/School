@@ -1,4 +1,4 @@
-package program;
+package tk.faunsce.bmi_calculator;
 
 import java.util.*;
 
