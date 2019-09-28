@@ -1,6 +1,9 @@
 # Visual Studio Settings
 .vs
 
+# Visual Studio Code Settings
+.vscode
+
 # Cmake Build files
 [Oo]ut/
 
@@ -15,3 +18,4 @@ gradlew
 gradlew.bat
 [Bb]uild/
 [Tt]est/
+
