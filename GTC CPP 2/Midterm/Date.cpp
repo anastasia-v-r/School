@@ -1,9 +1,87 @@
-﻿#include <iostream>
-#include "Date.hpp"
+﻿#include "Date.hpp"
 
-int main() {
-	Date vDate;
+// Structors
+
+Date::Date()
+	: month{ 1 }
+	, day{ 1 }
+	, year{ 1970 }
+{
 }
+
+Date::~Date()
+{
+}
+
+// Getters
+
+std::string Date::getDateFormat1() {
+
+}
+
+std::string Date::getDateFormat2() {
+
+}
+
+std::string Date::getDateFormat3() {
+
+}
+
+// Setters
+
+void Date::setMonth(int temp) {
+
+}
+
+void Date::setDay(int temp) {
+
+}
+
+void Date::setYear(int temp) {
+
+}
+
+// Overloads
+
+Date& Date::operator++()
+{
+	// operate on object
+	return *this;
+}
+
+Date& Date::operator--()
+{
+	// operate on object
+	return *this;
+}
+
+Date Date::operator++(int)
+{
+	Month temp(name);
+	// operate on non temp
+	return temp;
+}
+
+Date Date::operator--(int)
+{
+	Date temp(name);
+	// operate on non temp
+	return temp;
+}
+
+std::ostream& operator<<(std::ostream& strm, const Date& obj)
+{
+	strm << "\"" << std::endl;
+	return strm;
+}
+
+std::istream& operator>>(std::istream& strm, Date& obj)
+{
+	strm >> input;
+	month = input;
+	return strm;
+}
+
 
 /*
 Date Class Modification
@@ -26,11 +104,4 @@ When a day is set to the first day of the month and decremented, it should becom
 When a date is set to January 1 and decremented, it should become December 31 of the previous year.
 Demonstrate the class’s capabilities in a simple program.
 Input Validation: The overloaded >> operator should not accept invalid dates. For example, the date 13/45/2018 should not be accepted.
-*/
-
-/*
-12/25/2018
-December 25, 2018
-25 December 2018
-3 formats
 */
