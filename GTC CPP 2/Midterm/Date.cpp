@@ -326,7 +326,7 @@ int Date::operator-(const Date& otherDate)
 	if ((temp.year < otherDate.year) ||
 		(temp.year == otherDate.year && temp.month < otherDate.month) ||
 		(temp.year == otherDate.year && temp.month == otherDate.month && temp.day < otherDate.day)) {
-		std::cout << "Negative Date Error" << std::endl;
+		throw "Negative Date Error";
 		return 0;
 	}
 	while (temp.year != otherDate.year || temp.month != otherDate.month || temp.day != otherDate.day) {
