@@ -1,8 +1,10 @@
 ﻿#include "Date.hpp"
 #include <iostream>
+#include <sstream>
 
 // Month list
 std::vector<std::string> monthNames{
+	"None",
 	"January",
 	"February",
 	"March",
@@ -39,16 +41,22 @@ Date::~Date()
 
 // Outputters
 
-std::string Date::getDateFormat1() {
-	return "DateFormat1";
+std::string Date::numberedFormat() {
+	std::ostringstream temp;
+	temp << month << "/" << day << "/" << year;
+	return temp.str();
 }
 
-std::string Date::getDateFormat2() {
-	return "DateFormat2";
+std::string Date::monthDayFormat() {
+	std::ostringstream temp;
+	temp << monthNames[month] << " " << day << ", " << year;
+	return temp.str();
 }
 
-std::string Date::getDateFormat3() {
-	return "DateFormat3";
+std::string Date::dayMonthFormat() {
+	std::ostringstream temp;
+	temp << day << " " << monthNames[month] << " " << year;
+	return temp.str();
 }
 
 // Getters
@@ -161,23 +169,25 @@ Date& Date::operator--()
 		default:
 			break;
 		}
+	} else {
+		day--;
 	}
 	return *this;
 }
 
 Date& Date::operator++(int)
 {
-	Date temp(*this);
+	Date temp(month, day, year);
 	// operate on non temp
-	switch (this->month)
+	switch (month)
 	{
 	case 2: // February Special Case
-		if ((this->year % 4 && this->day == 29) || (this->day == 28)) {
-		this->month++;
-		this->day = 1;
+		if ((year % 4 && day == 29) || (day == 28)) {
+		month++;
+		day = 1;
 		}
 		else {
-			this->day++;
+			day++;
 		}
 		break;
 	case 1: // 31 day months
@@ -187,30 +197,28 @@ Date& Date::operator++(int)
 	case 8:
 	case 10:
 	case 12:
-		if (this->day == 31) {
-			this->day = 1;
-			if (this->month == 12) {
-				this->year++;
-				this->month = 1;
+		if (day == 31) {
+			day = 1;
+			if (month == 12) {
+				year++;
+				month = 1;
+			} else {
+				month++;
 			}
-			else {
-				this->month++;
-			}
-		}
-		else {
-			this->day++;
+		} else {
+			day++;
 		}
 		break;
 	case 4: // 30 day months
 	case 6:
 	case 9:
 	case 11:
-		if (this->day == 31) {
-			this->day = 1;
-			this->month++;
+		if (day == 31) {
+			day = 1;
+			month++;
 		}
 		else {
-			this->day++;
+			day++;
 		}
 		break;
 	default:
@@ -221,18 +229,16 @@ Date& Date::operator++(int)
 
 Date& Date::operator--(int)
 {
-	Date temp(*this);
+	Date temp(month, day, year);
 	// operate on non temp
-	if (this->day == 1) {
-		if (this->month == 1)
-			this->year--;
-		switch (this->month)
+	if (day == 1) {
+		switch (month)
 		{
 		case 3: // March Special case
-			if (this->year % 4)
-				this->day = 29;
+			if (year % 4)
+				day = 29;
 			else
-				this->day = 28;
+				day = 28;
 			break;
 		case 1: // Into 31 days
 		case 2:
@@ -241,16 +247,24 @@ Date& Date::operator--(int)
 		case 8:
 		case 9:
 		case 11:
-			this->day = 31;
+			day = 31;
 			break;
 		case 5: // Into 30 days
 		case 7:
 		case 10:
 		case 12:
-			this->day = 30;
+			day = 30;
 		default:
 			break;
 		}
+		if (month == 1) {
+			month = 12;
+			year--;
+		} else {
+			month--;
+		}
+	} else {
+		day--;
 	}
 	return temp;
 }
@@ -258,19 +272,24 @@ Date& Date::operator--(int)
 int Date::operator-(const Date& otherDate)
 {
 	int dayDiff = 0;
-	auto temp = otherDate;
-	while (temp.year != this->year || temp.month != this->month || temp.day != this->day) {
+	auto temp = *this;
+	if ((temp.year < otherDate.year) ||
+		(temp.year == otherDate.year && temp.month < otherDate.month) ||
+		(temp.year == otherDate.year && temp.month == otherDate.month && temp.day < otherDate.day)) {
+		std::cout << "Negative Date Error" << std::endl;
+		return 0;
+	}
+	while (temp.year != otherDate.year || temp.month != otherDate.month || temp.day != otherDate.day) {
 		temp--;
 		dayDiff++;
-		std::cout << temp << "\nCurrent Diff (" << dayDiff << ")" << std::endl;
+		// std::cout << temp << "\nCurrent Diff (" << dayDiff << ")" << std::endl;
 	}
-	std::cout << "Day difference is [" << dayDiff << "]" << std::endl;
 	return dayDiff;
 }
 
 std::ostream& operator<<(std::ostream& strm, const Date& obj)
 {
-	strm << monthNames[(int)obj.month + 1] << " " << obj.day << ", " << obj.year << std::endl;
+	strm << monthNames[(int)obj.month] << " " << obj.day << ", " << obj.year;
 	return strm;
 }
 
@@ -323,16 +342,3 @@ std::istream& operator>>(std::istream& strm, Date& obj)
 	obj.day = day;
 	return strm;
 }
-
-
-/*
-Date Class Modification
-Modify the Date class in Programming Challenge 1 of Chapter 13. The new version should have the following overloaded operators:
-
-−
-Subtraction operator. If one Date object is subtracted from another, the operator should give the number of days between the two dates. \
-For example, if April 10, 2014 is subtracted from April 18, 2014, the result will be 8.
-
-The class should detect the following conditions and handle them accordingly:
-
-*/

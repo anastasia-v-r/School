@@ -16,9 +16,9 @@ public:
 	Date(int, int, int);
 	~Date();
 	// Outputters
-	std::string getDateFormat1();
-	std::string getDateFormat2();
-	std::string getDateFormat3();
+	std::string numberedFormat();
+	std::string monthDayFormat();
+	std::string dayMonthFormat();
 	// Getters
 	int getMonth();
 	int getDay();
