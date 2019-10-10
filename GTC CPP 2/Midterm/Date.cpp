@@ -28,11 +28,67 @@ Date::Date()
 {
 }
 
-Date::Date(int month, int day, int year)
-	: month{ month }
-	, day{day}
-	, year{year}
-{
+Date::Date(int month, int day, int year) {
+	if (year < 0 || month < 0 || month > 12 || day < 0 || day > 31) {
+		std::cout << "Invalid parameters for date creation (creating default)" << std::endl;
+		this->day = 1;
+		this->month = 1;
+		this->year = 1970;
+		return;
+	} else {
+		switch (month)
+		{
+		case 2: // February Edge Case
+			if (year % 4) {
+				if (day > 29) {
+					std::cout << "February max days are 29 on leap years (creating default)" << std::endl;
+					this->day = 1;
+					this->month = 1;
+					this->year = 1970;
+					return;
+				}
+			} else {
+				if (day > 28) {
+					std::cout << "February max days are 27 on non-leap years (creating default)" << std::endl;
+					this->day = 1;
+					this->month = 1;
+					this->year = 1970;
+					return;
+				}
+			}
+		case 1: // 31 day months
+		case 3:
+		case 5:
+		case 7:
+		case 8:
+		case 10:
+		case 12:
+			if (day > 31) {
+				std::cout << monthNames[month] << " max days are 31 (creating default)" << std::endl;
+				this->day = 1;
+				this->month = 1;
+				this->year = 1970;
+				return;
+			}
+			break;
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+			if (day > 30) {
+				std::cout << monthNames[month] << " max days are 30 (creating default)" << std::endl;
+				this->day = 1;
+				this->month = 1;
+				this->year = 1970;
+				return;
+			}
+		default:
+			break;
+		}
+	}
+	this->day = day;
+	this->month = month;
+	this->year = year;
 }
 
 Date::~Date()
