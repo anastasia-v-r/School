@@ -30,30 +30,18 @@ Date::Date()
 
 Date::Date(int month, int day, int year) {
 	if (year < 0 || month < 0 || month > 12 || day < 0 || day > 31) {
-		std::cout << "Invalid parameters for date creation (creating default)" << std::endl;
-		this->day = 1;
-		this->month = 1;
-		this->year = 1970;
-		return;
+		throw "Invalid parameters for date creation";
 	} else {
 		switch (month)
 		{
 		case 2: // February Edge Case
 			if (year % 4) {
 				if (day > 29) {
-					std::cout << "February max days are 29 on leap years (creating default)" << std::endl;
-					this->day = 1;
-					this->month = 1;
-					this->year = 1970;
-					return;
+					throw "February max days are 29 on leap years";
 				}
 			} else {
 				if (day > 28) {
-					std::cout << "February max days are 27 on non-leap years (creating default)" << std::endl;
-					this->day = 1;
-					this->month = 1;
-					this->year = 1970;
-					return;
+					throw "February max days are 27 on non-leap years";
 				}
 			}
 		case 1: // 31 day months
@@ -64,11 +52,9 @@ Date::Date(int month, int day, int year) {
 		case 10:
 		case 12:
 			if (day > 31) {
-				std::cout << monthNames[month] << " max days are 31 (creating default)" << std::endl;
-				this->day = 1;
-				this->month = 1;
-				this->year = 1970;
-				return;
+				std::ostringstream temp;
+				temp << monthNames[month] << " max days are 31";
+				throw temp.str();
 			}
 			break;
 		case 4:
@@ -76,11 +62,9 @@ Date::Date(int month, int day, int year) {
 		case 9:
 		case 11:
 			if (day > 30) {
-				std::cout << monthNames[month] << " max days are 30 (creating default)" << std::endl;
-				this->day = 1;
-				this->month = 1;
-				this->year = 1970;
-				return;
+				std::ostringstream temp;
+				temp << monthNames[month] << " max days are 30";
+				throw temp.str();
 			}
 		default:
 			break;
@@ -181,7 +165,7 @@ Date& Date::operator++()
 	case 6:
 	case 9:
 	case 11:
-		if (this->day == 31) {
+		if (this->day == 30) {
 			this->day = 1;
 			this->month++;
 		} else {
@@ -197,6 +181,9 @@ Date& Date::operator++()
 Date& Date::operator--()
 {
 	// operate on object
+	if (month == 1 && day == 1 && year == 1) {
+		throw "Dates before the current era are not supported";
+	}
 	if (this->day == 1) {
 		if (this->month == 1)
 			this->year--;
@@ -287,6 +274,9 @@ Date& Date::operator--(int)
 {
 	Date temp(month, day, year);
 	// operate on non temp
+	if (month == 1 && day == 1 && year == 1) {
+		throw "Dates before the current era are not supported";
+	}
 	if (day == 1) {
 		switch (month)
 		{
