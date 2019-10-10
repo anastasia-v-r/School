@@ -2,7 +2,10 @@
 #include "Date.hpp"
 
 int main() {
-	Date vDate;
+	Date later(4, 30, 2000);
+	Date earlier(6, 22, 1950);
+	int i = later - earlier;
+	system("cmd /k");
 }
 
 /*
