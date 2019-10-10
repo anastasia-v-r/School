@@ -39,7 +39,7 @@ public:
 private:
 	int month;
 	int day;
-	int year;
+	unsigned int year;
 };
 
 std::ostream& operator<<(std::ostream&, const Date&);

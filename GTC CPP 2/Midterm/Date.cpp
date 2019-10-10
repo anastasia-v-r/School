@@ -184,16 +184,14 @@ Date& Date::operator--()
 	if (month == 1 && day == 1 && year == 1) {
 		throw "Dates before the current era are not supported";
 	}
-	if (this->day == 1) {
-		if (this->month == 1)
-			this->year--;
-		switch (this->month)
+	if (day == 1) {
+		switch (month)
 		{
 		case 3: // March Special case
-			if (this->year % 4)
-				this->day = 29;
+			if (year % 4)
+				day = 29;
 			else
-				this->day = 28;
+				day = 28;
 			break;
 		case 1: // Into 31 days
 		case 2:
@@ -202,15 +200,21 @@ Date& Date::operator--()
 		case 8:
 		case 9:
 		case 11:
-			this->day = 31;
+			day = 31;
 			break;
 		case 5: // Into 30 days
 		case 7:
 		case 10:
 		case 12:
-			this->day = 30;
+			day = 30;
 		default:
 			break;
+		}
+		if (month == 1) {
+			month = 12;
+			year--;
+		} else {
+			month--;
 		}
 	} else {
 		day--;
@@ -317,7 +321,7 @@ Date& Date::operator--(int)
 
 int Date::operator-(const Date& otherDate)
 {
-	int dayDiff = 0;
+	unsigned long long int dayDiff = 0;
 	auto temp = *this;
 	if ((temp.year < otherDate.year) ||
 		(temp.year == otherDate.year && temp.month < otherDate.month) ||
@@ -328,6 +332,7 @@ int Date::operator-(const Date& otherDate)
 	while (temp.year != otherDate.year || temp.month != otherDate.month || temp.day != otherDate.day) {
 		temp--;
 		dayDiff++;
+		
 		// std::cout << temp << "\nCurrent Diff (" << dayDiff << ")" << std::endl;
 	}
 	return dayDiff;
