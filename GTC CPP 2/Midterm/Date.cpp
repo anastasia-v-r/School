@@ -29,7 +29,7 @@ Date::Date()
 }
 
 Date::Date(int month, int day, int year) {
-	if (year < 0 || month < 0 || month > 12 || day < 0 || day > 31) {
+	if (year < 1 || month < 1 || month > 12 || day < 1 || day > 31) {
 		throw "Invalid parameters for date creation";
 	} else {
 		switch (month)
@@ -37,11 +37,11 @@ Date::Date(int month, int day, int year) {
 		case 2: // February Edge Case
 			if (year % 4) {
 				if (day > 29) {
-					throw "February max days are 29 on leap years";
+					throw (std::string)"February max days are 29 on leap years";
 				}
 			} else {
 				if (day > 28) {
-					throw "February max days are 27 on non-leap years";
+					throw (std::string)"February max days are 27 on non-leap years";
 				}
 			}
 		case 1: // 31 day months
@@ -182,7 +182,7 @@ Date& Date::operator--()
 {
 	// operate on object
 	if (month == 1 && day == 1 && year == 1) {
-		throw "Dates before the current era are not supported";
+		throw (std::string)"Dates before the current era are not supported";
 	}
 	if (day == 1) {
 		switch (month)
@@ -279,7 +279,7 @@ Date& Date::operator--(int)
 	Date temp(month, day, year);
 	// operate on non temp
 	if (month == 1 && day == 1 && year == 1) {
-		throw "Dates before the current era are not supported";
+		throw (std::string)"Dates before the current era are not supported";
 	}
 	if (day == 1) {
 		switch (month)
@@ -326,7 +326,7 @@ int Date::operator-(const Date& otherDate)
 	if ((temp.year < otherDate.year) ||
 		(temp.year == otherDate.year && temp.month < otherDate.month) ||
 		(temp.year == otherDate.year && temp.month == otherDate.month && temp.day < otherDate.day)) {
-		throw "Negative Date Error";
+		throw (std::string)"Negative Date Error";
 		return 0;
 	}
 	while (temp.year != otherDate.year || temp.month != otherDate.month || temp.day != otherDate.day) {
