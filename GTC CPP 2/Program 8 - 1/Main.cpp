@@ -1,14 +1,11 @@
-#include "MapData.hpp"
-#include "Rendering.hpp"
-#include <vector>
-#include <conio.h>
-#include <ctime>
-#include <iterator>
-#include <thread>
-#include <mutex>
-#include <atomic>
+#include "MapData.hpp"6
+#include <ctime> // time
+#include <iostream> // cout and cin
+#include <iterator> // std::next
+#include <iomanip> // setw
+#include <thread> // Sleep
+#include <chrono> // milliseconds
 
-bool checkAnswer(const std::string&, const std::string&);
 std::pair<std::string, std::string> newQuestion();
 
 int main() {
@@ -17,61 +14,63 @@ int main() {
 	std::pair<std::string, std::string> correct = newQuestion();
 	int totalQuestions = 0;
 	int score = 0;
-	static std::mutex mu;
-	std::atomic<bool> isRunning = true;
-	std::thread RenderThread([&isRunning, &correct, &answerBuffer] {
-		while (isRunning) {
-			mu.lock();
-			Screen::Clear();
-			Screen::Draw(answerBuffer, correct);
-			mu.unlock();
-		}
-	});
-	while (isRunning) {
-		std::cout << std::flush;
-		if (_kbhit()) {
-			mu.lock();
-			if (_getch() == 27) {
-				isRunning = false;
-			} else if (_getch() == '\n') {
-				if (checkAnswer(answerBuffer, correct.second)) {
-					score++;
-					answerBuffer.clear();
-					correct = newQuestion();
-				} else {
-					answerBuffer.clear();
-				}
-			} else if (_getch() == 127 || _getch() == 8) {
-				answerBuffer.pop_back();
-			} else {
-				if (!(answerBuffer.size() < 15)) {
-					answerBuffer.pop_back();
-					answerBuffer.push_back(_getch());
-				} else {
-					answerBuffer.push_back(_getch());
-				}
+	int size;
+	char input;
+	bool goOn = false;
+	do {
+		system("cls");
+		do {
+			std::cout << "How long many questions would you like to answer?" << std::endl;
+			std::cin >> input;
+		} while (!std::isdigit(input) || input - '0' > '99');
+		size = input - '0';
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		while (true) {
+			system("cls");
+			int max = (correct.first.size() > correct.second.size()) ? correct.first.size() : correct.second.size();
+			std::cout << '+';
+			for (int i = 0; i < max + 28; i++) {
+				std::cout << '-';
 			}
-			mu.unlock();
+			std::cout << '+' << std::endl;
+			std::cout << "|" << std::setw(-max) << correct.first << " capital is :  | Score : " << std::setw(2) << score << "/" << std::setw(2) << totalQuestions << '|' << std::endl;
+			std::cout << '+';
+			for (int i = 0; i < max + 28; i++) {
+				std::cout << '-';
+			}
+			std::cout << '+' << std::endl << std::endl;
+			std::getline(std::cin, answerBuffer, '\n');
+			std::cout << std::endl << "[" << answerBuffer << "]" << std::endl;
+			if (answerBuffer.find("[") != std::string::npos) {
+				std::cout << "REEEEEE";
+				return 0;
+			}
+			else if (answerBuffer.find(correct.second) != std::string::npos) {
+				std::cout << "Correct!" << std::endl;
+				score++;
+			}
+			else {
+				std::cout << "Wrong!" << std::endl;
+			}
+			answerBuffer.clear();
+			totalQuestions++;
+			correct = newQuestion();
+			if (totalQuestions == size)
+				break;
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		}
-	}
-}
-
-bool checkAnswer(const std::string& answer, const std::string& correct) {
-	if (answer == correct)
-		return true;
-	else
-		return false;
+		system("cls");
+		std::cout << "Your score is " << std::setw(2) << score << "/" << std::setw(2) << totalQuestions << std::endl;
+		std::cout << "Would you like to go again? [y/n]" << std::endl;
+		char yuh;
+		std::cin.get(yuh);
+		yuh = std::tolower(yuh);
+		goOn = (yuh == 'y') ? true : false;
+	} while (goOn);
 }
 
 std::pair<std::string, std::string> newQuestion() {
 	int choice = std::rand() % User::statesMap.size();
 	return *std::next(User::statesMap.begin(), choice);
 }
-/*
-Capital Quiz
-Write a program that creates a map containing the U.S. states as keys, and their capitals as values. 
-(Use the Internet to get a list of the states and their capitals.) The program should then randomly 
-quiz the user by displaying the name of a state and ask the user to enter that state’s capital. The 
-program should keep a count of the number of correct and incorrect responses. (As an alternative to 
-the U.S. states, the program can use the names of countries and their capitals.)
-*/
