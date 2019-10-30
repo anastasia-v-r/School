@@ -7,6 +7,7 @@
 #include <chrono> // milliseconds
 
 std::pair<std::string, std::string> newQuestion();
+std::string strLow(const std::string&);
 
 int main() {
 	std::srand(std::time(nullptr));
@@ -30,23 +31,24 @@ int main() {
 			system("cls");
 			int max = (correct.first.size() > correct.second.size()) ? correct.first.size() : correct.second.size();
 			std::cout << '+';
-			for (int i = 0; i < max + 28; i++) {
+			for (int i = 0; i < max + 30; i++) {
 				std::cout << '-';
 			}
 			std::cout << '+' << std::endl;
-			std::cout << "|" << std::setw(-max) << correct.first << " capital is :  | Score : " << std::setw(2) << score << "/" << std::setw(2) << totalQuestions << '|' << std::endl;
+			std::cout << "|" << std::setw(-max) << correct.first << "'s capital is :  | Score : " << std::setw(2) << score << "/" << std::setw(2) << totalQuestions << '|' << std::endl;
 			std::cout << '+';
-			for (int i = 0; i < max + 28; i++) {
+			for (int i = 0; i < max + 30; i++) {
 				std::cout << '-';
 			}
 			std::cout << '+' << std::endl << std::endl;
 			std::getline(std::cin, answerBuffer, '\n');
 			std::cout << std::endl << "[" << answerBuffer << "]" << std::endl;
+			answerBuffer = strLow(answerBuffer);
 			if (answerBuffer.find("[") != std::string::npos) {
 				std::cout << "REEEEEE";
 				return 0;
 			}
-			else if (answerBuffer.find(correct.second) != std::string::npos) {
+			else if (answerBuffer.find(strLow(correct.second)) != std::string::npos) {
 				std::cout << "Correct!" << std::endl;
 				score++;
 			}
@@ -73,4 +75,15 @@ int main() {
 std::pair<std::string, std::string> newQuestion() {
 	int choice = std::rand() % User::statesMap.size();
 	return *std::next(User::statesMap.begin(), choice);
+}
+
+std::string strLow(const std::string& string) {
+	std::string temp;
+	for (const auto& letter : string) {
+		if (std::isalnum(letter))
+			temp.push_back(std::tolower(letter));
+		else
+			temp.push_back(letter);
+	}
+	return temp;
 }
