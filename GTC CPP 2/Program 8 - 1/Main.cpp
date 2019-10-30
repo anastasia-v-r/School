@@ -18,6 +18,8 @@ int main() {
 	int size;
 	char input;
 	bool goOn = false;
+	std::cout << "Enter the character '[' at any point in an answer to exit the program" << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	do {
 		system("cls");
 		do {
