@@ -18,9 +18,11 @@ int main() {
 	int size;
 	char input;
 	bool goOn = false;
+
 	std::cout << "Enter the character '[' at any point in an answer to exit the program" << std::endl;
 	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	do {
+		auto startTime = std::chrono::high_resolution_clock::now();
 		system("cls");
 		do {
 			std::cout << "How long many questions would you like to answer?" << std::endl;
@@ -65,7 +67,9 @@ int main() {
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		}
 		system("cls");
+		auto timeElapsed = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - startTime).count();
 		std::cout << "Your score is " << std::setw(2) << score << "/" << std::setw(2) << totalQuestions << std::endl;
+		std::cout << "Your time spent was " << timeElapsed << "s" << std::endl;
 		std::cout << "Would you like to go again? [y/n]" << std::endl;
 		char yuh;
 		std::cin.get(yuh);
