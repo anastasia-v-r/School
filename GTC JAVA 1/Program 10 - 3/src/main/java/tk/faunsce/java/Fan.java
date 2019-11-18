@@ -39,7 +39,7 @@ public class Fan {
         if (this.on) {
             return ("Fan Speed [" + this.speed + "] Fan Radius [" + this.radius + "] Fan Color [" + this.color + "]");
         } else {
-            return ("The fan is off");
+            return ("The fan is off, Fan Radius [" + this.radius + "] Fan Color [" + this.color + "]");
         }
     }
     // Data
