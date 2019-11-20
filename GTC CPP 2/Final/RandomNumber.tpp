@@ -14,31 +14,32 @@ constexpr T randNum() {
 	std::conditional<
 		std::is_integral_v<T>, 
 			std::uniform_int_distribution<T>, // If integral, let it keep its type
-			std::uniform_int_distribution<std::int64_t>>::type; // If floating, set to int_64
+			std::uniform_int_distribution<std::int64_t>
+	>::type; // If floating, set to int_64
+	
 	using range_t = typename
 	std::conditional<
 		std::is_integral_v<T>,
-			T,
-			std::int64_t>::type;
+			std::pair<T, T>,
+			std::pair<std::int64_t, std::int64_t>
+	>::type;
 
 	static std::random_device rd; // Get a perfectly random seed for each type's engine
 	static std::mt19937_64 mt(rd()); // Create a randomly seeded engine for each type
 
-	range_t max; // Set the ceiling
+	range_t range; // Set the ceiling
 	if constexpr(std::is_integral_v<T>) {
-		max = std::numeric_limits<T>::max() - 1;
+		range.second = std::numeric_limits<T>::max() - 1;
 	} else {
-		max = std::numeric_limits<std::int64_t>::max() - 1;
+		range.second = std::numeric_limits<std::int64_t>::max() - 1;
 	}
-
-	range_t min; // Set the floor
 	if constexpr (std::is_signed_v<T>) {
-		min = -max;
+		range.first = -max;
 	} else {
-		min = 0;
+		range.first = 0;
 	} 
 
-	dist_t dist(min, max); // Mark the range for integrals
+	dist_t dist(range.first, range.second); // Mark the range for integrals
 
 	if constexpr(std::is_integral_v<T>) { // Check if the type is of an integral
 		return dist(mt);
@@ -65,54 +66,16 @@ constexpr T randNum(const T user_min, const T user_max) {
 	std::conditional<
 		std::is_integral_v<T>,
 			std::uniform_int_distribution<T>, // If integral, let it keep its type
-			std::uniform_int_distribution<std::int64_t>>::type; // If floating, set to int_64
-
-	using range_t = typename
-	std::conditional<
-		std::is_integral_v<T>,
-			T,						// if integral, let is keep its type for range
-			std::int64_t>::type;	// if floating, force range to be min/max int64
+			std::uniform_real_distribution<T>
+	>::type; // If floating, set to int_64
 
 	static std::random_device rd; // Get a perfectly random seed for each type's engine
 	static std::mt19937_64 mt(rd()); // Create a randomly seeded engine for each type
 
-	range_t min;
-	range_t p_min; // precision min
-	range_t max;
-	range_t p_max; // precision max
-	if constexpr (std::is_integral_v<T>) {
-		min = user_min;
-		max = user_max;
-	} else {
-		T minInt;
-		T minFloat = std::modf(user_min, &minInt); // get integer range min
-		min = static_cast<range_t>(minInt);
+	
+	dist_t dist(user_min, user_max); // Mark the range for integrals
 
-		T maxInt;
-		T maxFloat = std::modf(user_max, &maxInt); // get integer range max
-		max = static_cast<range_t>(maxInt);
-
-		T precision_range = (minInt == maxInt) // get the range
-			? maxFloat - minFloat // If floats are on same whole number, just find simple range
-			: (maxFloat) + // distance between max and floor
-			  ((std::is_same_v<T, float>)  // distance between min and ceiling
-				? 1.0f - minFloat 
-				: 1.0 - minFloat); 
-		p_min = 0;
-		p_max = static_cast<range_t>(precision_range * (std::is_same_v<T, float> ? 10000000.0f : 1000000000000000.0));
-	}
-	// get range
-	// operate on range
-	// renormalize
-	dist_t dist(min, max); // Mark the range for integrals
-
-	if constexpr (std::is_integral_v<T>) { // Check if the type is of an integral
-		return dist(mt);
-	} else {
-		std::cout << p_min << " " << p_max << std::endl;
-		dist_t precision_dist(p_min, p_max); // Create a range based on the number of decimal places floats vs doubles have
-		return ((T)dist(mt) + (T)((T)(precision_dist(mt)) / ((std::is_same_v<T, float>) ? 10000000.0f : 1000000000000000.0))); // use int distribution to create the significant and floating sections
-	}
+	return dist(mt);
 }
 
 
