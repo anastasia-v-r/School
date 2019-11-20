@@ -1,8 +1,31 @@
 #pragma once
+#include "PoliceOfficer.hpp"
+#include "ParkedCar.hpp"
+#include "ParkingMeter.hpp"
+#include <string>
 
 class ParkingTicket
 {
-
+public:
+	// Constructors
+	ParkingTicket() = delete;
+	ParkingTicket(const ParkedCar&, const PoliceOfficer&, const ParkingMeter&);
+	// Getters
+	inline double getFine() const { return this->fine; };
+	inline std::string getMake() const { return this->make; };
+	inline std::string getModel() const { return this->model; };
+	inline std::string getColor() const { return this->color; };
+	inline std::string getPlate() const { return this->plate; };
+	inline std::string getName() const { return this->issuing_officer; };
+	inline unsigned short getBadge() const { return this->officer_badge; };
+private:
+	std::string make;
+	std::string model;
+	std::string color;
+	std::string plate;
+	double fine;
+	std::string issuing_officer;
+	unsigned short officer_badge;
 };
 
 /*

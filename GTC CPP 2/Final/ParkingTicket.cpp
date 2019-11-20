@@ -1,9 +1,24 @@
 #include "ParkingTicket.hpp"
+#include "ParkedCar.hpp"
+#include "PoliceOfficer.hpp"
+#include "ParkingMeter.hpp"
 
-/*
-The ParkingTicket Class: This class should simulate a parking ticket. The class’s responsibilities are:
-– To report the make, model, color, and license number of the illegally parked car
-– To report the amount of the fine, which is $25 for the first hour or part of an hour that the car is illegally parked, plus $10
-for every additional hour or part of an hour that the car is illegally parked
-– To report the name and badge number of the police officer issuing the ticket
-*/
+ParkingTicket::ParkingTicket(const ParkedCar& car, const PoliceOfficer& officer, const ParkingMeter& meter)
+	: make{ car.getMake() }
+	, model{ car.getModel() }
+	, color{ car.getColor() }
+	, plate{ car.getPlate() }
+	, issuing_officer{ officer.getName() }
+	, officer_badge{ officer.getBadge() } {
+	double overtime = meter.getTime() - car.getTime();
+	if (overtime > 0.0) {
+		overtime -= 60.0;
+		fine = 25.0;
+		while (overtime > 0.0) {
+			overtime -= 60.0;
+			fine += 10.0;
+		}
+	} else {
+		fine = 0.0;
+	}
+};
