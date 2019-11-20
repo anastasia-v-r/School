@@ -1,13 +1,28 @@
 #pragma once
+#include <string>
 
 class ParkedCar
 {
-
+public:
+	// Constructors
+	ParkedCar() = delete;
+	inline ParkedCar(std::string make, std::string model, std::string color, std::string plate)
+		: make{make}
+		, model{model}
+		, color{color}
+		, plate{plate}
+	{};
+	// Processors
+	inline void passTime(double minutes) { time_parked += minutes; };
+	// Getters
+	inline std::string getMake() const { return this->make; };
+	inline std::string getModel() const { return this->model; };
+	inline std::string getColor() const { return this->color; };
+	inline std::string getPlate() const { return this->plate;} ;
+private:
+	std::string make;
+	std::string model;
+	std::string color;
+	std::string plate;
+	double time_parked;
 };
-
-/*
-The ParkedCar Class: This class should simulate a parked car. The class’s responsibilities are:
-– To know the car’s make, model, color, license number, and the number of minutes that the car has been parked
-The ParkingMeter Class: This class should simulate a parking meter. The class’s only responsibility is:
-– To know the number of minutes of parking time that has been purchased
-*/
