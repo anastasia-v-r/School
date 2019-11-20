@@ -14,6 +14,8 @@ public:
 	// Constructors
 	ParkingTicket() = default;
 	ParkingTicket(const ParkedCar&, const PoliceOfficer&, const ParkingMeter&);
+	// Output
+	friend std::ostream& operator<<(std::ostream& strm, const ParkingTicket& obj);
 	// Getters
 	double getFine() const;
 	std::string getMake() const;

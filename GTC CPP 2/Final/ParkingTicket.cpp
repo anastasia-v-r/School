@@ -1,4 +1,6 @@
 #include "ParkingTicket.hpp"
+#include <iostream>
+#include <iomanip>
 #include "ParkedCar.hpp"
 #include "PoliceOfficer.hpp"
 #include "ParkingMeter.hpp"
@@ -22,6 +24,20 @@ ParkingTicket::ParkingTicket(const ParkedCar& car, const PoliceOfficer& officer,
 		fine = 0.0;
 	}
 };
+
+std::ostream& operator<<(std::ostream& strm, const ParkingTicket& obj) {
+	strm << "=====================" << std::endl;
+	strm << "=  PARKING  TICKET  =" << std::endl;
+	strm << "= MAKE : " << std::setw(10) << obj.make << "=" << std::endl;
+	strm << "= MODEL : " << std::setw(9) << obj.model << "=" << std::endl;
+	strm << "= PLATE : " << std::setw(9) << obj.plate << "=" << std::endl;
+	strm << "= COLOR : " << std::setw(9) << obj.color << "=" << std::endl;
+	strm << "= OFFICER : " << std::setw(7) << obj.issuing_officer << "=" << std::endl;
+	strm << "= OFFICER ID : " << std::setw(3) << obj.officer_badge << "=" << std::endl;
+	strm << "=     FINE : $" << std::setw(5) << std::fixed << std::setprecision(2) << obj.fine << "=" << std::endl;
+	strm << "=====================" << std::endl;
+	return strm;
+}
 
 double ParkingTicket::getFine() const { 
 	return this->fine; 
