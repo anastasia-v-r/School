@@ -15,7 +15,7 @@ PoliceOfficer::PoliceOfficer(std::string name)
 			throw std::invalid_argument("Police officer names should not contain non letters!");
 		}
 	}
-	std::cout << "assigning #" << this->m_id << " to " << m_name << std::endl;
+	std::cout << "assigning #" << this->m_id << " to officer " << m_name << std::endl;
 	PoliceOfficer::taken_ids.emplace(this->m_id);
 }
 
