@@ -3,21 +3,17 @@
 #include <vector>
 #include "ParkingTicket.hpp"
 
+class ParkingTicket;
+
 class ParkedCar
 {
 public:
 	// Constructors
 	ParkedCar() = default;
-	inline ParkedCar(std::string make, std::string model, std::string color, std::string plate)
-		: make{make}
-		, model{model}
-		, color{color}
-		, plate{plate}
-		, time_parked{ 0.0 }
-	{};
+	ParkedCar(std::string /*make*/, std::string /*model*/, std::string /*color*/, std::string /*plate*/);
 	// Processors
-	inline void passTime(double minutes) { time_parked += minutes; };
-	inline void giveTicket(ParkingTicket ticket) { tickets.push_back(ticket); };
+	void passTime(double /*minutes*/);
+	void giveTicket(ParkingTicket /*ticket*/);
 	// Getters
 	inline std::string getMake() const { return this->make; };
 	inline std::string getModel() const { return this->model; };

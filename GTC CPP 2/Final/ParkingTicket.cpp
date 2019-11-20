@@ -22,3 +22,31 @@ ParkingTicket::ParkingTicket(const ParkedCar& car, const PoliceOfficer& officer,
 		fine = 0.0;
 	}
 };
+
+double ParkingTicket::getFine() const { 
+	return this->fine; 
+};
+
+std::string ParkingTicket::getMake() const { 
+	return this->make; 
+};
+
+std::string ParkingTicket::getModel() const { 
+	return this->model;
+};
+
+std::string ParkingTicket::getColor() const { 
+	return this->color; 
+};
+
+std::string ParkingTicket::getPlate() const {
+	return this->plate; 
+};
+
+std::string ParkingTicket::getName() const { 
+	return this->issuing_officer; 
+};
+
+unsigned short ParkingTicket::getBadge() const { 
+	return this->officer_badge; 
+};

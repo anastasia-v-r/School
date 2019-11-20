@@ -4,8 +4,8 @@ class ParkingMeter
 {
 public:
 	ParkingMeter() = default;
-	inline ParkingMeter(double minutes) { time_paid = minutes; };
-	inline double getTime() const { return this->time_paid; };
+	ParkingMeter(double /*minutes*/);
+	double getTime() const;
 private:
 	double time_paid;
 };

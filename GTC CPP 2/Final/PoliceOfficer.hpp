@@ -5,6 +5,9 @@
 #include "ParkingMeter.hpp"
 #include "ParkedCar.hpp"
 
+class ParkedCar;
+class ParkingMeter;
+
 class PoliceOfficer
 {
 public:
