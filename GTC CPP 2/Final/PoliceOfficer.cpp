@@ -2,11 +2,10 @@
 #include "ParkedCar.hpp"
 #include "ParkingMeter.hpp"
 #include "RandomNumber.tpp"
+#include "Funcs.hpp"
 #include <iostream>
 
 std::set<unsigned short> PoliceOfficer::taken_ids;
-
-unsigned short getFreshId(const std::set<unsigned short>& /* Known Ids */);
 
 PoliceOfficer::PoliceOfficer(std::string name)
 	: m_name{ name } 
@@ -23,9 +22,4 @@ void PoliceOfficer::examine(ParkedCar& car, const ParkingMeter& meter) {
 	if (car.getTime() > meter.getTime()) {
 		car.giveTicket(ParkingTicket(car, *this, meter));
 	}
-}
-
-unsigned short getFreshId(const std::set<unsigned short>& knownIds) {
-	auto id = randNum<unsigned short>();
-	return (knownIds.count(id)) ? getFreshId(knownIds) : id;
 }

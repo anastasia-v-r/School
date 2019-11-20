@@ -19,14 +19,14 @@ public:
 	std::string getMake() const;
 	std::string getModel() const;
 	std::string getColor() const;
-	std::string getPlate() const;
+	unsigned short getPlate() const;
 	std::string getName() const;
 	unsigned short getBadge() const;
 private:
 	std::string make;
 	std::string model;
 	std::string color;
-	std::string plate;
+	unsigned short plate;
 	double fine;
 	std::string issuing_officer;
 	unsigned short officer_badge;

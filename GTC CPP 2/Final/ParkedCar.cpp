@@ -1,10 +1,14 @@
 #include "ParkedCar.hpp"
+#include "Funcs.hpp"
+#include <set>
 
-ParkedCar::ParkedCar(std::string make, std::string model, std::string color, std::string plate)
+std::set<unsigned short> ParkedCar::known_plates;
+
+ParkedCar::ParkedCar(std::string make, std::string model, std::string color)
 	: make{ make }
 		, model{ model }
 		, color{ color }
-		, plate{ plate }
+		, plate{ getFreshId(ParkedCar::known_plates) }
 		, time_parked{ 0.0 }
 	{};
 

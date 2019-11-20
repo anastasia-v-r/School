@@ -39,7 +39,7 @@ std::string ParkingTicket::getColor() const {
 	return this->color; 
 };
 
-std::string ParkingTicket::getPlate() const {
+unsigned short ParkingTicket::getPlate() const {
 	return this->plate; 
 };
 
