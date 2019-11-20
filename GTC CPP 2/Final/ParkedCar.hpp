@@ -44,6 +44,7 @@ public:
 	inline std::string getColor() const { return this->color; };
 	inline unsigned short getPlate() const { return this->plate;};
 	inline double getTime() const { return this->time_parked; };
+	inline const std::vector<ParkingTicket>& getTickets() const { return tickets; };
 private:
 	std::string make;
 	std::string model;
