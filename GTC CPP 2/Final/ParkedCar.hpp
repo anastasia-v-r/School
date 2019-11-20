@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <vector>
+#include "ParkingTicket.hpp"
 
 class ParkedCar
 {
@@ -15,6 +17,7 @@ public:
 	{};
 	// Processors
 	inline void passTime(double minutes) { time_parked += minutes; };
+	inline void ticket(ParkingTicket ticket) { tickets.push_back(ticket); };
 	// Getters
 	inline std::string getMake() const { return this->make; };
 	inline std::string getModel() const { return this->model; };
@@ -27,4 +30,5 @@ private:
 	std::string color;
 	std::string plate;
 	double time_parked;
+	std::vector<ParkingTicket> tickets;
 };
