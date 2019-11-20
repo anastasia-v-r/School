@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <exception>
 
-/// sdsd
+/// Default template 
 template <class T>
 constexpr T randNum() {
 
@@ -49,6 +49,7 @@ constexpr T randNum() {
 	}
 }
 
+// Template with a given min and max
 template <class T>
 constexpr T randNum(const T user_min, const T user_max) {
 
@@ -60,7 +61,7 @@ constexpr T randNum(const T user_min, const T user_max) {
 	else if (user_min < static_cast<T>(std::numeric_limits<std::int64_t>::min())) // Make sure min and max aren't too big (memory wise)
 		throw std::invalid_argument("[RandNum] Min is too small (x < int64_t::min)");
 	else if (user_max > static_cast<T>(std::numeric_limits<std::int64_t>::max()))
-		throw std::invalid_argument("[RandNum] Max is too big (x > int65_t::min)");
+		throw std::invalid_argument("[RandNum] Max is too big (x > int64_t::min)");
 
 	using dist_t = typename
 	std::conditional<
