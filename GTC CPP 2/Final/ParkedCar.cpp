@@ -4,10 +4,10 @@
 
 std::set<unsigned short> ParkedCar::known_plates;
 
-ParkedCar::ParkedCar(std::string make, std::string model, std::string color)
-	: make{ make }
-		, model{ model }
-		, color{ color }
+ParkedCar::ParkedCar(MAKE_MODEL make_and_model, COLOR color)
+	: make{ MAKE_MODEL_DICT[make_and_model].first }
+		, model{ MAKE_MODEL_DICT[make_and_model].second }
+		, color{ COLOR_DICT[color] }
 		, plate{ getFreshId(ParkedCar::known_plates) }
 		, time_parked{ 0.0 }
 	{};
