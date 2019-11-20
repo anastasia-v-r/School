@@ -34,7 +34,7 @@ constexpr T randNum() {
 		range.second = std::numeric_limits<std::int64_t>::max() - 1;
 	}
 	if constexpr (std::is_signed_v<T>) {
-		range.first = -max;
+		range.first = -range.second;
 	} else {
 		range.first = 0;
 	} 
