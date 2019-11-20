@@ -16,6 +16,7 @@ public:
 	~PoliceOfficer();
 	void examine(ParkedCar& /* car */, const ParkingMeter& /* meter */);
 	inline std::string getName() const { return m_name; };
+	inline std::string getName(unsigned short badge) const { return taken_ids.at(badge); };
 	inline unsigned short getBadge() const { return m_id; };
 private:
 	std::string m_name;
