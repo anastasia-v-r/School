@@ -18,7 +18,8 @@ public:
 	inline std::string getMake() const { return this->make; };
 	inline std::string getModel() const { return this->model; };
 	inline std::string getColor() const { return this->color; };
-	inline std::string getPlate() const { return this->plate;} ;
+	inline std::string getPlate() const { return this->plate;};
+	inline double getTime() const { return this->time_parked; };
 private:
 	std::string make;
 	std::string model;
