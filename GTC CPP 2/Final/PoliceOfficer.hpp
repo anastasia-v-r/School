@@ -3,24 +3,19 @@
 #include <set>
 #include <array>
 #include "ParkingMeter.hpp"
+#include "ParkedCar.hpp"
 
 class PoliceOfficer
 {
 public:
-	PoliceOfficer();
+	PoliceOfficer() = delete;
 	PoliceOfficer(std::string /* name */);
 	~PoliceOfficer();
-	void examine(const ParkingMeter& /* meter and car */);
+	void examine(ParkedCar& /* car */, const ParkingMeter& /* meter */);
+	inline std::string getName() const { return m_name; };
+	inline unsigned short getBadge() const { return m_id; };
 private:
 	std::string m_name;
 	unsigned short m_id;
 	static std::set<unsigned short> taken_ids;
 };
-
-/*
-The PoliceOfficer Class: This class should simulate a police officer inspecting parked cars. The class’s responsibilities are:
-– To know the police officer’s name and badge number
-– To examine a ParkedCar object and a ParkingMeter object, and determine whether the car’s time has expired
-– To issue a parking ticket (generate a ParkingTicket object) if the car’s time has expired
-Write a program that demonstrates how these classes collaborate.
-*/
