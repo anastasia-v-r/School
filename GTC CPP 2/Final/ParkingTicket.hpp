@@ -4,11 +4,11 @@
 #include "ParkingMeter.hpp"
 #include <string>
 
-class ParkingTicket
+class ParkingTicket 
 {
 public:
 	// Constructors
-	ParkingTicket() = delete;
+	ParkingTicket() = default;
 	ParkingTicket(const ParkedCar&, const PoliceOfficer&, const ParkingMeter&);
 	// Getters
 	inline double getFine() const { return this->fine; };

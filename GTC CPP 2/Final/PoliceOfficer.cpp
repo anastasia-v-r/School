@@ -21,7 +21,7 @@ PoliceOfficer::~PoliceOfficer() {
 
 void PoliceOfficer::examine(ParkedCar& car, const ParkingMeter& meter) {
 	if (car.getTime() > meter.getTime()) {
-		car.ticket(ParkingTicket(car, *this, meter));
+		car.giveTicket(ParkingTicket(car, *this, meter));
 	}
 }
 

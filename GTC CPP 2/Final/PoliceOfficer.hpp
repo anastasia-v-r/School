@@ -8,7 +8,7 @@
 class PoliceOfficer
 {
 public:
-	PoliceOfficer() = delete;
+	PoliceOfficer() = default;
 	PoliceOfficer(std::string /* name */);
 	~PoliceOfficer();
 	void examine(ParkedCar& /* car */, const ParkingMeter& /* meter */);

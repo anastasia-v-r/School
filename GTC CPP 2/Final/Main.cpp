@@ -1,12 +1,18 @@
 #include <iostream>
-#include <ctime>
+#include "RandomNumber.tpp"
 #include "PoliceOfficer.hpp"
 #include "ParkedCar.hpp"
 #include "ParkingTicket.hpp"
 
 int main() {
-	std::srand(std::time(NULL));
-	PoliceOfficer officer()
+	PoliceOfficer officer("Andrew Barnes");
+	ParkedCar myCar("Toyota", "Camry", "Silver", "CET8888");
+	ParkingMeter meter(120.0);
+	try {
+		
+	} catch (const std::exception& msg) {
+		std::cout << msg.what() << std::endl;
+	}
 }
 
 /*

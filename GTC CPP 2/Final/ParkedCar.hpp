@@ -7,7 +7,7 @@ class ParkedCar
 {
 public:
 	// Constructors
-	ParkedCar() = delete;
+	ParkedCar() = default;
 	inline ParkedCar(std::string make, std::string model, std::string color, std::string plate)
 		: make{make}
 		, model{model}
@@ -17,7 +17,7 @@ public:
 	{};
 	// Processors
 	inline void passTime(double minutes) { time_parked += minutes; };
-	inline void ticket(ParkingTicket ticket) { tickets.push_back(ticket); };
+	inline void giveTicket(ParkingTicket ticket) { tickets.push_back(ticket); };
 	// Getters
 	inline std::string getMake() const { return this->make; };
 	inline std::string getModel() const { return this->model; };
