@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <set>
+#include <map>
 #include <array>
 #include "ParkingMeter.hpp"
 #include "ParkedCar.hpp"
@@ -20,5 +20,5 @@ public:
 private:
 	std::string m_name;
 	unsigned short m_id;
-	static std::set<unsigned short> taken_ids;
+	static std::map<unsigned short, std::string> taken_ids;
 };

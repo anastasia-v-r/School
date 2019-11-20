@@ -5,7 +5,7 @@
 #include "Funcs.hpp"
 #include <iostream>
 
-std::set<unsigned short> PoliceOfficer::taken_ids;
+std::map<unsigned short, std::string> PoliceOfficer::taken_ids;
 
 PoliceOfficer::PoliceOfficer(std::string name)
 	: m_name{ name } 
@@ -16,7 +16,7 @@ PoliceOfficer::PoliceOfficer(std::string name)
 		}
 	}
 	std::cout << "assigning #" << this->m_id << " to officer " << m_name << std::endl;
-	PoliceOfficer::taken_ids.emplace(this->m_id);
+	PoliceOfficer::taken_ids.insert({ this->m_id, this->m_name });
 }
 
 PoliceOfficer::~PoliceOfficer() {
