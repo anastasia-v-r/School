@@ -11,6 +11,7 @@ public:
 		, model{model}
 		, color{color}
 		, plate{plate}
+		, time_parked{ 0.0 }
 	{};
 	// Processors
 	inline void passTime(double minutes) { time_parked += minutes; };
