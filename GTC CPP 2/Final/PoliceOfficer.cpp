@@ -9,7 +9,7 @@ std::map<unsigned short, std::string> PoliceOfficer::taken_ids;
 
 PoliceOfficer::PoliceOfficer(std::string name)
 	: m_name{ name } 
-	, m_id{ getFreshId(PoliceOfficer::taken_ids) } {
+	, m_id{ Custom::getFreshId(PoliceOfficer::taken_ids) } {
 	for (const auto& letter : this->m_name) {
 		if (!std::isalpha(letter)) {
 			throw std::invalid_argument("Police officer names should not contain non letters!");
