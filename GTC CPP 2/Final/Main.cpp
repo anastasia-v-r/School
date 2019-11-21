@@ -1,6 +1,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <sstream>
+#include <iomanip>
 #include "Funcs.hpp"
 #include "RandomNumber.tpp"
 #include "Input.tpp"
@@ -64,6 +66,11 @@ int main() {
 			Custom::output("Would you like to go again? ( y / n )");
 			goAgain = Custom::input<bool>();
 		} while (goAgain);
+
+		// Calculate and present the value of all tickets issued to the player
+		std::stringstream strm;
+		strm << std::fixed << std::setprecision(2) << city_revenue;
+		Custom::output("The Value of all tickets issued results in $" + strm.str() + " of city revenue");
 	} catch (const std::exception& msg) {
 		std::string message = msg.what();
 		std::cout << std::endl << std::endl;
@@ -76,4 +83,6 @@ int main() {
 			std::cout << "[EXCEPTION] ";
 		}
 	}
+
+	std::cin.ignore(1);
 }

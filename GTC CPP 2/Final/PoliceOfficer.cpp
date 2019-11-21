@@ -25,6 +25,7 @@ PoliceOfficer::~PoliceOfficer() {
 
 double PoliceOfficer::examine(ParkedCar& car, const ParkingMeter& meter) {
 	if (car.getTime() > meter.getTime()) {
+		Custom::output("Issuing a fresh ticket");
 		car.giveTicket(ParkingTicket(car, *this, meter));
 		return car.getTickets().back().getFine();
 	}
