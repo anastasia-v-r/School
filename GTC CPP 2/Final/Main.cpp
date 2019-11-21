@@ -11,7 +11,6 @@
 int main() {
 	try {
 		// Data
-		double city_revenue{ 0.0 };
 		double max_time{ 180.0 };
 		unsigned int parking_spaces{ 1u };
 		unsigned int parking_freq{ 50u };
