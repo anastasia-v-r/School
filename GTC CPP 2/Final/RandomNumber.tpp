@@ -10,7 +10,7 @@ namespace Custom {
 	constexpr T randNum() {
 
 		static_assert(std::is_arithmetic_v<T>, "[RandNum] This template only accepts arithmetic types (INT / REAL)"); // Make sure the type is Int/Real
-
+		static_assert(!std::is_same_v < T, char> "[RandNum] This template does not accept chars as a valid arithmetic type"); // Make sure the type isnt char
 		using dist_t = typename
 		std::conditional<
 			std::is_integral_v<T>,
@@ -55,6 +55,8 @@ namespace Custom {
 	constexpr T randNum(const T user_min, const T user_max) {
 
 		static_assert(std::is_arithmetic_v<T>, "[RandNum] This template only accepts arithmetic types (INT / REAL)"); // Make sure the type is Int/Real
+		static_assert(!std::is_same_v < T, char> "[RandNum] This template does not accept chars as a valid arithmetic type"); // Make sure the type isnt char
+
 		if (user_min > user_max) // Make sure the min is lower
 			throw std::invalid_argument("[RandNum] Minimum is larger than maximum");
 		else if (user_min == user_max) // Make sure the min is lower
