@@ -116,15 +116,15 @@ namespace Custom {
 			return temp;
 		} else { // if no good input was given, generate trash name
 			return std::string{
-				randNum<char>('a','z'),
-				randNum<char>('a','z'),
-				randNum<char>('a','z'),
-				randNum<char>('a','z'),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
 				' ',
-				randNum<char>('a','z'),
-				randNum<char>('a','z'),
-				randNum<char>('a','z'),
-				randNum<char>('a','z'),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
+				static_cast<char>(randNum<unsigned int>(static_cast<short>('a'),static_cast<short>('z'))),
 			};
 		}
 	}
