@@ -12,17 +12,17 @@ namespace Custom {
 		static_assert(std::is_arithmetic_v<T>, "[RandNum] This template only accepts arithmetic types (INT / REAL)"); // Make sure the type is Int/Real
 
 		using dist_t = typename
-			std::conditional<
+		std::conditional<
 			std::is_integral_v<T>,
-			std::uniform_int_distribution<T>, // If integral, let it keep its type
-			std::uniform_int_distribution<std::int64_t>
+				std::uniform_int_distribution<T>, // If integral, let it keep its type
+				std::uniform_int_distribution<std::int64_t>
 			>::type; // If floating, set to int_64
 
 		using range_t = typename
-			std::conditional<
+		std::conditional<
 			std::is_integral_v<T>,
-			std::pair<T, T>,
-			std::pair<std::int64_t, std::int64_t>
+				std::pair<T, T>,
+				std::pair<std::int64_t, std::int64_t>
 			>::type;
 
 		static std::random_device rd; // Get a perfectly random seed for each type's engine
