@@ -56,8 +56,15 @@ int main() {
 			}
 		}
 	} catch (const std::exception& msg) {
-		std::cout << "EXCEPTION EXCEPTION EXCEPTION EXCEPTION" << std::endl;
-		std::cout << msg.what() << std::endl;
-		std::cout << "EXCEPTION EXCEPTION EXCEPTION EXCEPTION" << std::endl;
+		std::string message = msg.what();
+		std::cout << std::endl << std::endl;
+		for (int i = 0; i < message.length() / 9 ; i++) {
+			std::cout << "[EXCEPTION] ";
+		}
+		std::cout << std::endl << std::endl;;
+		std::cout << msg.what() << std::endl << std::endl;
+		for (int i = 0; i < message.length() / 9; i++) {
+			std::cout << "[EXCEPTION] ";
+		}
 	}
 }
