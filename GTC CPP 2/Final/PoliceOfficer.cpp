@@ -11,8 +11,8 @@ PoliceOfficer::PoliceOfficer(std::string name)
 	: m_name{ name } 
 	, m_id{ Custom::getFreshId(PoliceOfficer::taken_ids) } {
 	for (const auto& letter : this->m_name) {
-		if (!std::isalpha(letter)) {
-			throw std::invalid_argument("Police officer names should not contain non letters!");
+		if (!std::isalpha(letter) && !std::isspace(letter)) {
+			throw std::invalid_argument("Police officer names should not contain non letters/spaces!");
 		}
 	}
 	std::cout << "assigning #" << this->m_id << " to officer " << m_name << std::endl;
