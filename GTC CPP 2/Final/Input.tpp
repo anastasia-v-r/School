@@ -128,4 +128,38 @@ namespace Custom {
 			};
 		}
 	}
+
+	// Booleans
+	template < typename T,
+		std::enable_if_t<
+		std::is_same_v<T, bool>
+	> * = nullptr>
+	T input() {
+		// Data
+		char temp;
+		bool correct;
+		unsigned int = 1u;
+
+		// Get first input
+		std::cout << ">> " << std::flush;
+		std::cin >> temp;
+		std::cout << std::endl;
+
+		if (std::tolower(temp) == 'y' || std::tolower(temp) == 'n') {
+			return (temp == 'y') ? true : false;
+		} else {
+			do {
+				trys++;
+				// Get input again
+				std::cout << ">> " << std::flush;
+				std::cin >> temp;
+				std::cout << std::endl;
+
+				// Check input
+				if (std::tolower(temp) == 'y' || std::tolower(temp) == 'n')
+					return (temp == 'y') ? true : false;
+			} while (trys < 5);
+			return false; // default if input is failed 5 times
+		}
+	}
 }
