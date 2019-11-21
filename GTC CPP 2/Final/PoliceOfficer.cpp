@@ -23,8 +23,9 @@ PoliceOfficer::~PoliceOfficer() {
 	PoliceOfficer::taken_ids.erase(this->m_id);
 }
 
-void PoliceOfficer::examine(ParkedCar& car, const ParkingMeter& meter) {
+double PoliceOfficer::examine(ParkedCar& car, const ParkingMeter& meter) {
 	if (car.getTime() > meter.getTime()) {
 		car.giveTicket(ParkingTicket(car, *this, meter));
+		return car.getTickets().back().getFine();
 	}
 }

@@ -11,6 +11,7 @@
 int main() {
 	try {
 		bool goAgain = false;
+		double city_revenue{ 0.0 };
 		do {
 			/// Data
 			double max_time{ 180.0 };
@@ -51,7 +52,7 @@ int main() {
 					it->second->passTime(Custom::randNum<float>(0.0, max_time * 2.0));
 					Custom::output("Would you like to inspect parking space [" + std::to_string((int)(it - streetSide.begin())) + "] ( y / n )?");
 					if (Custom::input<bool>()) // Check if the user wishes to examine the vehicle
-						officer.examine(*it->second, it->first);
+						city_revenue += officer.examine(*it->second, it->first);
 					Custom::output("All tickets on this car including the previous one");
 					for (const auto& ticket : it->second->getTickets()) {
 						std::cout << ticket << std::endl;
