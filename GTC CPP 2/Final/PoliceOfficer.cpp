@@ -15,7 +15,7 @@ PoliceOfficer::PoliceOfficer(std::string name)
 			throw std::invalid_argument("Police officer names should not contain non letters/spaces!");
 		}
 	}
-	std::cout << "assigning #" << this->m_id << " to officer " << m_name << std::endl;
+	Custom::output("assigning #" + std::to_string(this->m_id) + " to officer " + this->m_name);
 	PoliceOfficer::taken_ids.insert({ this->m_id, this->m_name });
 }
 
