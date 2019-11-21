@@ -8,7 +8,7 @@ namespace Custom {
 	// Arithmetic Types
 	template < typename T,
 		std::enable_if_t<
-		std::is_arithmetic_v<T>
+		std::is_arithmetic_v<T> && !std::is_same_v<T, bool>
 	> * = nullptr>
 	T input(T min, T max) {
 		// Adjust min and max based on types
@@ -138,7 +138,7 @@ namespace Custom {
 		// Data
 		char temp;
 		bool correct;
-		unsigned int = 1u;
+		unsigned int trys = 1u;
 
 		// Get first input
 		std::cout << ">> " << std::flush;
