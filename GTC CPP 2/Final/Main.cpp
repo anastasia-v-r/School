@@ -43,11 +43,14 @@ int main() {
 			}
 		}
 
-		for (auto& parking_space : streetSide) {
-			if (parking_space.second != nullptr) {
-				parking_space.second->passTime(Custom::randNum<float>(0.0, max_time * 2.0));
-				officer.examine(*parking_space.second, parking_space.first);
-				for (const auto& ticket : parking_space.second->getTickets()) {
+		for (auto it = streetSide.begin(); it != streetSide.end(); it++) {
+			if (it->second != nullptr) {
+				it->second->passTime(Custom::randNum<float>(0.0, max_time * 2.0));
+				Custom::output("Would you like to inspect parking space [" + std::to_string((int)(it - streetSide.begin())) + "] ( y / n )?");
+				if (Custom::input<bool>())
+					officer.examine(*it->second, it->first);
+				Custom::output("All tickets on this car including the previous one");
+				for (const auto& ticket : it->second->getTickets()) {
 					std::cout << ticket << std::endl;
 				}
 			}
