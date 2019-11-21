@@ -27,7 +27,7 @@ namespace Custom {
 		for (int i = 0; i < message.length() + 4; i++) {
 			temp << "=";
 		}
-		temp << std::endl;
+		temp << std::endl << std::endl;
 		std::cout << temp.str();
 		return temp.str();
 	}
