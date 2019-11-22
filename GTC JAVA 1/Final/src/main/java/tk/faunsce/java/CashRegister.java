@@ -4,7 +4,7 @@ import javafx.util.Pair;
 
 public class CashRegister {
     // Constructors
-    public CashRegister(Pair<RetailItem, Integer>[] items) {
+    public CashRegister(Pair<RetailItem, Integer>... items) {
         this.items = items;
     }
     // Getters
